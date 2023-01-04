@@ -63,7 +63,7 @@ export default async function (tree: Tree, options: NxPluginGeneratorSchema) {
     sourceRoot: `${normalizedOptions.projectRoot}/src`,
     targets: {
       build: {
-        executor: '@microservice-stack/nx-plugin:build',
+        executor: '@microservice-stack/microservices:build',
       },
     },
     tags: normalizedOptions.parsedTags,

@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'nx-plugin',
+  displayName: 'microservices-e2e',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +11,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/packages/nx-plugin',
+  coverageDirectory: '../../coverage/packages/microservices-e2e',
 };

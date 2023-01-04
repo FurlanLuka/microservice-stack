@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "MicroservicesInitGenerator",
+  "title": "Init Microservices Plugin",
+  "description": "Init Microservices Plugin",
+  "cli": "nx",
+  "type": "object",
+  "properties": {
+  },
+  "additionalProperties": false,
+  "required": []
+}

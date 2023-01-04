@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@microservice-stack/nx-plugin": ["packages/nx-plugin/src/index.ts"]
+      "@microservice-stack/microservices": [
+        "packages/microservices/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

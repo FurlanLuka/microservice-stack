@@ -4,7 +4,7 @@ import { Tree, readProjectConfiguration } from '@nrwl/devkit';
 import generator from './generator';
 import { NxPluginGeneratorSchema } from './schema';
 
-describe('nx-plugin generator', () => {
+describe('microservices generator', () => {
   let appTree: Tree;
   const options: NxPluginGeneratorSchema = { name: 'test' };
 

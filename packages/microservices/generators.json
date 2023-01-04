@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "microservices",
+  "version": "0.0.1",
+  "generators": {
+    "microservices": {
+      "factory": "./src/generators/microservices/generator",
+      "schema": "./src/generators/microservices/schema.json",
+      "description": "microservices generator"
+    }
+  }
+}

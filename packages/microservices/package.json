@@ -1,5 +1,5 @@
 {
-  "name": "@microservice-stack/nx-plugin",
+  "name": "@microservice-stack/microservices",
   "version": "0.0.1",
   "main": "src/index.js",
   "generators": "./generators.json",

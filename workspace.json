@@ -2,7 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "nx-plugin": "packages/nx-plugin",
-    "nx-plugin-e2e": "packages/nx-plugin-e2e"
+    "microservices": "packages/microservices",
+    "microservices-e2e": "packages/microservices-e2e"
   }
 }
