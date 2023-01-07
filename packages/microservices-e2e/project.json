@@ -5,7 +5,7 @@
   "sourceRoot": "packages/microservices-e2e/src",
   "targets": {
     "e2e": {
-      "executor": "@nrwl/microservices:e2e",
+      "executor": "@nrwl/nx-plugin:e2e",
       "options": {
         "target": "microservices:build",
         "jestConfig": "packages/microservices-e2e/jest.config.ts"

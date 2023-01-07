@@ -3,5 +3,15 @@
   "version": "0.0.1",
   "main": "src/index.js",
   "generators": "./generators.json",
-  "executors": "./executors.json"
+  "executors": "./executors.json",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@nrwl/linter": "15.4.4",
+    "@nrwl/node": "15.4.4",
+    "@nrwl/devkit": "15.4.4",
+    "@nrwl/js": "15.4.4",
+    "@nrwl/nest": "15.4.4"
+  }
 }

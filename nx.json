@@ -23,6 +23,18 @@
     },
     "test": {
       "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
+    },
+    "build": {
+      "inputs": ["production", "^production"]
     }
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "sharedGlobals": [],
+    "production": ["default"]
+  },
+  "workspaceLayout": {
+    "libsDir": "libs",
+    "appsDir": "apps"
   }
 }
