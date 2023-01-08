@@ -7,6 +7,8 @@ import configurationGenerator from '../configuration-generator/generator';
 
 const defaultSchema: ApplicationGeneratorSchema = {
   applicationName: 'test',
+  includeDatabase: true,
+  includeQueue: true,
 };
 
 describe('Application generate generator', () => {
@@ -53,6 +55,10 @@ describe('Application generate generator', () => {
     ).toBeTruthy();
 
     expect(
+      tree.exists(`apps/api/${defaultSchema.applicationName}/src/migrations.ts`)
+    ).toBeTruthy();
+
+    expect(
       tree.exists(`apps/api/${defaultSchema.applicationName}/src/app.module.ts`)
     ).toBeTruthy();
 
@@ -77,5 +83,12 @@ describe('Application generate generator', () => {
         `libs/api/${defaultSchema.applicationName}/data-transfer-objects/src/index.ts`
       )
     ).toBeTruthy();
+
+    const projectConfiguration = readProjectConfiguration(
+      tree,
+      `api-${defaultSchema.applicationName}`
+    );
+
+    expect(projectConfiguration.targets['generate-migrations']).toBeDefined();
   });
 });

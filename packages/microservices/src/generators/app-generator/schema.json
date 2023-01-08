@@ -10,6 +10,17 @@
       "type": "string",
       "x-prompt": "What apllication name would you like to pick?"
     }
+    ,
+    "includeQueue": {
+      "type": "boolean",
+      "description": "Enable queue configuration? (only with deployment enabled)",
+      "x-prompt": "Enable queue configuration? (only with deployment enabled)"
+    },
+    "includeDatabase": {
+      "type": "boolean",
+      "description": "Enable database configuration? (only with deployment enabled)",
+      "x-prompt": "Enable database configuration? (only with deployment enabled)"
+    }
   },
-  "required": ["applicationName"]
+  "required": ["applicationName", "includeQueue", "includeDatabase"]
 }

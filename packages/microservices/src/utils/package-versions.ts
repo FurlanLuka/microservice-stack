@@ -1,0 +1,3 @@
+export const TYPEORM_VERSION = '0.3.11';
+export const NESTJS_TYPEORM_VERSION = '9.0.1';
+export const MICROSERVICE_STACK_VERSION = '0.0.2';

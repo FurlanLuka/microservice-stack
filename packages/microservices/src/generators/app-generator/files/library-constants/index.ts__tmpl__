@@ -6,7 +6,10 @@ export const SERVICE_QUEUE_NAME = `${SERVICE_NAME}-queue`;
 
 export enum ConfigVariables {
   REQUIRED_ENVIRONMENT_VARIABLE = 'REQUIRED_ENVIRONMENT_VARIABLE',
-  <% if(includeQueue) { %>
-  QUEUE_URL = 'QUEUE_URL',
-  <% } %>
+  <% if(includeQueue) { %> QUEUE_URL = 'QUEUE_URL',<% } if(includeDatabase) { %>
+  TYPEORM_HOST = 'TYPEORM_HOST',
+  TYPEORM_USERNAME = 'TYPEORM_USERNAME',
+  TYPEORM_PASSWORD = 'TYPEORM_PASSWORD',
+  TYPEORM_DATABASE = 'TYPEORM_DATABASE',
+  TYPEORM_PORT = 'TYPEORM_PORT',<% } %>
 }

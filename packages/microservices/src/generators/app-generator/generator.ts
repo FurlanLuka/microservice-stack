@@ -9,12 +9,13 @@ import { getConfiguration } from '../configuration-generator/generator';
 import { libraryGenerator } from '../library-generator/generator';
 import { createConstantsLibraryFiles } from './lib/create-constants-library-files';
 import { createDtoLibraryFiles } from './lib/create-dto-library-files';
+import { addMigrationGenerationTarget } from './lib/add-migration-generation-target';
 
 export default async function applicationGenerator(
   tree: Tree,
-  { applicationName }: ApplicationGeneratorSchema
+  { applicationName, includeQueue, includeDatabase }: ApplicationGeneratorSchema
 ): Promise<void> {
-  const { includeQueue, organisationName }: ConfigurationGeneratorSchema =
+  const { organisationName }: ConfigurationGeneratorSchema =
     getConfiguration(tree);
 
   await nestApplicationGenerator(tree, {
@@ -34,6 +35,7 @@ export default async function applicationGenerator(
 
   createApplicationFiles(tree, applicationRoot, {
     includeQueue: includeQueue ?? false,
+    includeDatabase: includeDatabase ?? false,
     applicationName,
     organisationName,
   });
@@ -53,6 +55,7 @@ export default async function applicationGenerator(
 
   createConstantsLibraryFiles(tree, `${libraryRoot}/constants`, {
     includeQueue: includeQueue ?? false,
+    includeDatabase: includeDatabase ?? false,
     applicationName,
   });
 
@@ -65,4 +68,8 @@ export default async function applicationGenerator(
   deleteFiles(tree, `${libraryRoot}/data-transfer-objects/src`);
 
   createDtoLibraryFiles(tree, `${libraryRoot}/data-transfer-objects`);
+
+  if (includeDatabase) {
+    addMigrationGenerationTarget(tree, `api-${applicationName}`)
+  }
 }

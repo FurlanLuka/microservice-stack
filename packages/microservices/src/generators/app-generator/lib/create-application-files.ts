@@ -2,6 +2,7 @@ import { generateFiles, joinPathFragments, Tree } from '@nrwl/devkit';
 
 interface Options { 
   includeQueue: boolean;
+  includeDatabase: boolean;
   organisationName: string;
   applicationName: string;
 }

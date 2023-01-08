@@ -13,7 +13,7 @@
       "schema": "./src/generators/app-generator/schema.json",
       "description": "Microservice application generator"
     },
-    "util-library": {
+    "util-library-generator": {
       "factory": "./src/generators/util-library-generator/generator",
       "schema": "./src/generators/util-library-generator/schema.json",
       "description": "Util library generator"

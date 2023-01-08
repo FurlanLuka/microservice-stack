@@ -32,6 +32,8 @@ describe('Application library generator', () => {
   it('should generate application library', async () => {
     await applicationGenerator(tree, {
       applicationName: 'test',
+      includeDatabase: false,
+      includeQueue: false,
     });
 
     await appLibraryGenerator(tree, defaultAppLibrarySchema);

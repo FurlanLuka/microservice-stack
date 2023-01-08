@@ -6,6 +6,7 @@
     "microservices-e2e": "packages/microservices-e2e",
     "nest-application": "libs/nest-application",
     "nest-modules-config": "libs/nest-modules/config",
-    "nest-modules-health": "libs/nest-modules/health"
+    "nest-modules-health": "libs/nest-modules/health",
+    "nest-modules-typeorm-migrations": "libs/nest-modules/typeorm-migrations"
   }
 }

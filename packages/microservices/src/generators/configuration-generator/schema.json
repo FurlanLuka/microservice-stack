@@ -25,10 +25,10 @@
       "description": "Enable redis configuration? (only with deployment enabled)",
       "x-prompt": "Enable redis configuration? (only with deployment enabled)"
     },
-    "includePostgres": {
+    "includeDatabase": {
       "type": "boolean",
-      "description": "Enable postgres configuration? (only with deployment enabled)",
-      "x-prompt": "Enable postgres configuration? (only with deployment enabled)"
+      "description": "Enable database configuration? (only with deployment enabled)",
+      "x-prompt": "Enable database configuration? (only with deployment enabled)"
     }
   },
   "required": ["organisationName", "deploymentConfigurationEnabled"]

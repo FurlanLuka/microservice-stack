@@ -3,7 +3,7 @@ export interface ConfigurationGeneratorWithDeploymentSchema {
   deploymentConfigurationEnabled: true;
   includeQueue: boolean;
   includeRedis: boolean;
-  includePostgres: boolean;
+  includeDatabase: boolean;
 }
 
 export interface ConfigurationGeneratorWithoutDeploymentSchema {
@@ -11,7 +11,7 @@ export interface ConfigurationGeneratorWithoutDeploymentSchema {
   deploymentConfigurationEnabled: false;
   includeQueue?: boolean;
   includeRedis?: boolean;
-  includePostgres?: boolean;
+  includeDatabase?: boolean;
 }
 
 export type ConfigurationGeneratorSchema =

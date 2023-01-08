@@ -1,4 +1,4 @@
-import { ExamplePayload } from './example.interfaces.ts';
+import { ExamplePayload } from './example.interfaces';
 
 export class ExamplePayloadDto implements ExamplePayload {
   firstName: string;

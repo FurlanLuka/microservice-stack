@@ -1,18 +1,42 @@
 import { Module } from '@nestjs/common';
 import { HealthModule } from '@microservice-stack/module-health';
-import { ConfigModule } from '@microservice-stack/module-config';
+import { ConfigModule, ConfigService } from '@microservice-stack/module-config';
 import { ConfigVariables } from '@<%= organisationName %>/api/<%= applicationName %>/constants';
+<% if(includeDatabase) { %>import { TypeOrmModule } from '@nestjs/typeorm';
+import { migrations } from './migrations';<% } %>
 
 @Module({
   imports: [
     ConfigModule.register({
       requiredEnvironmentVariables: [
         ConfigVariables.REQUIRED_ENVIRONMENT_VARIABLE,
-        <% if(includeQueue) { %>
-        ConfigVariables.QUEUE_URL,
-        <% } %>
+        <% if(includeQueue) { %>ConfigVariables.QUEUE_URL,<% }  if(includeDatabase) { %>
+        ConfigVariables.TYPEORM_DATABASE,
+        ConfigVariables.TYPEORM_HOST,
+        ConfigVariables.TYPEORM_PASSWORD,
+        ConfigVariables.TYPEORM_PORT,
+        ConfigVariables.TYPEORM_USERNAME,<% } %>
       ],
     }),
+    <% if(includeDatabase) { %>
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: `postgres`,
+        host: configService.get(ConfigVariables.TYPEORM_HOST),
+        username: configService.get(ConfigVariables.TYPEORM_USERNAME),
+        password: configService.get(ConfigVariables.TYPEORM_PASSWORD),
+        database: configService.get(ConfigVariables.TYPEORM_DATABASE),
+        port: configService.get(ConfigVariables.TYPEORM_PORT),
+        synchronize: false,
+        keepConnectionAlive: true,
+        autoLoadEntities: true,
+        migrations: migrations,
+        migrationsRun: true,
+      }),
+      inject: [ConfigService],
+    }),
+    <% } %>
     HealthModule,
   ],
   controllers: [],
