@@ -3,11 +3,11 @@ import { Tree, readProjectConfiguration } from '@nrwl/devkit';
 
 import { libraryGenerator } from './generator';
 import { LibraryGeneratorSchema } from './schema';
+import configurationGenerator from '../configuration-generator/generator';
 
 const defaultSchema: LibraryGeneratorSchema = {
   libraryName: 'test',
   projectName: 'utils',
-  organisationName: 'microservice-stack',
   libraryType: 'UTIL',
 };
 
@@ -16,6 +16,11 @@ describe('Library generator', () => {
 
   beforeEach(() => {
     tree = createTreeWithEmptyWorkspace({ layout: 'apps-libs' });
+
+    configurationGenerator(tree, {
+      deploymentConfigurationEnabled: false,
+      organisationName: 'microservice-stack',
+    });
   });
 
   it('should generate util type lib', async () => {

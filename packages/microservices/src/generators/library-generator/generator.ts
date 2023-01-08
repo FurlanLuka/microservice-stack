@@ -4,16 +4,16 @@ import { libraryGenerator as nestLibraryGenerator } from '@nrwl/nest';
 import { Linter } from '@nrwl/linter';
 import { deleteFiles } from '../../utils/delete-files';
 import { createFiles } from './lib/create-files';
+import { getConfiguration } from '../configuration-generator/generator';
+import { ConfigurationGeneratorSchema } from '../configuration-generator/schema';
 
 export async function libraryGenerator(
   tree: Tree,
-  {
-    libraryName,
-    projectName,
-    organisationName,
-    libraryType,
-  }: LibraryGeneratorSchema
+  { libraryName, projectName, libraryType }: LibraryGeneratorSchema
 ): Promise<void> {
+  const { organisationName }: ConfigurationGeneratorSchema =
+    getConfiguration(tree);
+
   const tags: string[] = [];
 
   if (libraryType === 'API') {

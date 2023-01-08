@@ -1,0 +1,12 @@
+export const SERVICE_NAME = '<%= applicationName %>';
+
+<% if(includeQueue) { %>
+export const SERVICE_QUEUE_NAME = `${SERVICE_NAME}-queue`;
+<% } %>
+
+export enum ConfigVariables {
+  REQUIRED_ENVIRONMENT_VARIABLE = 'REQUIRED_ENVIRONMENT_VARIABLE',
+  <% if(includeQueue) { %>
+  QUEUE_URL = 'QUEUE_URL',
+  <% } %>
+}

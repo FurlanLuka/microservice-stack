@@ -1,0 +1,13 @@
+import { AppModule } from './app.module';
+import { startService } from '@microservice-stack/nest-application';
+import { SERVICE_NAME } from '@<%= organisationName %>/api/<%= applicationName %>/constants';
+import { Logger } from '@nestjs/common';
+
+async function bootstrap(): Promise<void> {
+  await startService(SERVICE_NAME, AppModule);
+}
+
+bootstrap().catch((error) => {
+  Logger.error(error);
+  throw error;
+});

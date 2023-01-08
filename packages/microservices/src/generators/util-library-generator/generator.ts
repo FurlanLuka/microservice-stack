@@ -4,12 +4,11 @@ import { libraryGenerator } from '../library-generator/generator';
 
 export default async function utilLibraryGenerator(
   tree: Tree,
-  { utilName, organisationName }: UtilLibraryGeneratorSchema
+  { utilName }: UtilLibraryGeneratorSchema
 ): Promise<void> {
   await libraryGenerator(tree, {
     libraryName: utilName,
     libraryType: 'UTIL',
     projectName: 'utils',
-    organisationName,
   });
 }

@@ -1,0 +1,18 @@
+{
+  "name": "@microservice-stack/nest-application",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "dependencies": {
+    "@nestjs/common": "^9.2.1",
+    "@nestjs/core": "^9.2.1",
+    "@nestjs/platform-fastify": "^9.2.1",
+    "nest-winston": "^1.8.0",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "@types/winston": "^2.4.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
