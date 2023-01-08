@@ -1,0 +1,13 @@
+{
+  "name": "@microservice-stack/module-rabbitmq",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "dependencies": {
+    "@golevelup/nestjs-rabbitmq": "^3.4.0",
+    "@nestjs/common": "^9.2.1",
+    "@nestjs/core": "^9.2.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

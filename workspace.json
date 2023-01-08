@@ -7,6 +7,7 @@
     "nest-application": "libs/nest-application",
     "nest-modules-config": "libs/nest-modules/config",
     "nest-modules-health": "libs/nest-modules/health",
+    "nest-modules-rabbitmq": "libs/nest-modules/rabbitmq",
     "nest-modules-typeorm-migrations": "libs/nest-modules/typeorm-migrations"
   }
 }

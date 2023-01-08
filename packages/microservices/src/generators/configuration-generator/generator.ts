@@ -1,4 +1,9 @@
-import { addDependenciesToPackageJson, readJson, Tree } from '@nrwl/devkit';
+import {
+  addDependenciesToPackageJson,
+  GeneratorCallback,
+  readJson,
+  Tree,
+} from '@nrwl/devkit';
 import {
   MICROSERVICE_STACK_VERSION,
   NESTJS_TYPEORM_VERSION,
@@ -8,7 +13,10 @@ import { ConfigurationGeneratorSchema } from './schema';
 
 const CONFIGURATION_FILE_NAME = 'microservice-stack.json';
 
-function addDependencies(tree: Tree, schema: ConfigurationGeneratorSchema) {
+function addDependencies(
+  tree: Tree,
+  schema: ConfigurationGeneratorSchema
+): GeneratorCallback {
   const dependencies = {
     '@microservice-stack/nest-application': MICROSERVICE_STACK_VERSION,
     '@microservice-stack/module-health': MICROSERVICE_STACK_VERSION,
@@ -22,7 +30,7 @@ function addDependencies(tree: Tree, schema: ConfigurationGeneratorSchema) {
     dependencies['@nestjs/typeorm'] = NESTJS_TYPEORM_VERSION;
   }
 
-  addDependenciesToPackageJson(tree, dependencies, {});
+  return addDependenciesToPackageJson(tree, dependencies, {});
 }
 
 export default function configurationGenerator(

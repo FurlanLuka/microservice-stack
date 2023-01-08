@@ -24,6 +24,9 @@
       "@microservice-stack/module-health": [
         "libs/nest-modules/health/src/index.ts"
       ],
+      "@microservice-stack/module-rabbitmq": [
+        "libs/nest-modules/rabbitmq/src/index.ts"
+      ],
       "@microservice-stack/module-typeorm-migrations": [
         "libs/nest-modules/typeorm-migrations/src/index.ts"
       ],

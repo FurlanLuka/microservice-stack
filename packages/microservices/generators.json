@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema",
   "name": "microservices",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "generators": {
     "configuration-generator": {
       "factory": "./src/generators/configuration-generator/generator",
@@ -11,7 +11,12 @@
     "application-generator": {
       "factory": "./src/generators/app-generator/generator",
       "schema": "./src/generators/app-generator/schema.json",
-      "description": "Microservice application generator"
+      "description": "Application generator"
+    },
+    "app-library-generator": {
+      "factory": "./src/generators/app-library-generator/generator",
+      "schema": "./src/generators/app-library-generator/schema.json",
+      "description": "Application library generator"
     },
     "util-library-generator": {
       "factory": "./src/generators/util-library-generator/generator",
