@@ -53,7 +53,7 @@ async function deploy(services: string[], debugEnabled: boolean) {
         console.log(`Deploying ${service}...`);
 
         await execAsync(
-          `helm upgrade --install ${service} infrastructure/charts/node-service --set tag=latest --set image=${service} --set --set environment=local --set service.name=${service}`
+          `helm upgrade --install ${service} infrastructure/charts/node-service --set tag=latest --set image=${service} --set environment=local --set service.name=${service}`
         );
 
         console.log(`${service} deployed ✅`);
