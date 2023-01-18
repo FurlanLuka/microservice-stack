@@ -27,9 +27,13 @@ async function getServiceList(debugEnabled: boolean): Promise<string[]> {
 
 async function buildBaseImage(debugEnabled: boolean) {
   try {
+    console.log(`Building base image...`);
+
     await execAsync(
       `eval $(minikube docker-env) && DOCKER_SCAN_SUGGEST=false docker build -f infrastructure/local/Dockerfile.prebuild -t service-prebuild:latest .`
     );
+
+    console.log(`Base image build successful ✅`);
   } catch (error) {
     if (debugEnabled) {
       console.error(JSON.stringify(error, null, 2));
@@ -83,6 +87,7 @@ async function deploy(services: string[], debugEnabled: boolean) {
 export async function deployServices(debugEnabled: boolean) {
   const services: string[] = await getServiceList(debugEnabled);
 
+  await buildBaseImage()
   await build(services, debugEnabled);
   await deploy(services, debugEnabled);
 }
@@ -94,6 +99,7 @@ export async function deployService(service: string, debugEnabled: boolean) {
     throw new Error('This service does not exist.');
   }
 
+  await buildBaseImage()
   await build([service], debugEnabled);
   await deploy([service], debugEnabled);
 }
