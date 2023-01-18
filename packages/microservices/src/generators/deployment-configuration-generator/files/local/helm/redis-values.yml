@@ -1,0 +1,18 @@
+auth:
+  enabled: false
+
+master:
+  startupProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
+  readinessProbe:
+    enabled: false
+
+replica:
+  startupProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
+  readinessProbe:
+    enabled: false

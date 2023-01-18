@@ -1,6 +1,6 @@
 {
   "name": "@microservice-stack/module-rabbitmq",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "type": "commonjs",
   "dependencies": {
     "@golevelup/nestjs-rabbitmq": "^3.4.0",

@@ -1,0 +1,23 @@
+image:
+  repository: zcube/bitnami-compat-rabbitmq
+  tag: latest
+
+communityPlugins: 'https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/download/3.10.2/rabbitmq_delayed_message_exchange-3.10.2.ez'
+#
+## Extra plugins to enable
+## Use this instead of `plugins` to add new pluginsmv ra
+##
+extraPlugins: 'rabbitmq_auth_backend_ldap rabbitmq_delayed_message_exchange'
+
+auth:
+  username: guest
+  password: guest
+
+replicaCount: 1
+
+livenessProbe:
+  enabled: false
+readinessProbe:
+  enabled: false
+startupProbe:
+  enabled: false

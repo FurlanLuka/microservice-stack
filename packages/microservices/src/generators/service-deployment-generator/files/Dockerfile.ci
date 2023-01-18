@@ -1,0 +1,12 @@
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+
+WORKDIR /service
+
+COPY dist/apps/api/<%= applicationName %>/ /service
+
+USER node
+
+WORKDIR /
+
+CMD ["/bin/sh"]

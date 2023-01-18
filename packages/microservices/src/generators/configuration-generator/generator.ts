@@ -5,10 +5,14 @@ import {
   Tree,
 } from '@nrwl/devkit';
 import {
+  CHALK_VERSION,
+  CLEAR_VERSION,
+  COMMANDER_VERSION,
   MICROSERVICE_STACK_VERSION,
   NESTJS_TYPEORM_VERSION,
   TYPEORM_VERSION,
 } from '../../utils/package-versions';
+import deploymentConfigurationGenerator from '../deployment-configuration-generator/generator';
 import { ConfigurationGeneratorSchema } from './schema';
 
 const CONFIGURATION_FILE_NAME = 'microservice-stack.json';
@@ -17,11 +21,18 @@ function addDependencies(
   tree: Tree,
   schema: ConfigurationGeneratorSchema
 ): GeneratorCallback {
+  const devDependencies = {};
   const dependencies = {
     '@microservice-stack/nest-application': MICROSERVICE_STACK_VERSION,
     '@microservice-stack/module-health': MICROSERVICE_STACK_VERSION,
     '@microservice-stack/module-config': MICROSERVICE_STACK_VERSION,
   };
+
+  if (schema.deploymentConfigurationEnabled) {
+    devDependencies['chalk'] = CHALK_VERSION;
+    devDependencies['clear'] = CLEAR_VERSION;
+    devDependencies['commander'] = COMMANDER_VERSION;
+  }
 
   if (schema.includeDatabase) {
     dependencies['@microservice-stack/module-typeorm-migrations'] =
@@ -30,7 +41,7 @@ function addDependencies(
     dependencies['@nestjs/typeorm'] = NESTJS_TYPEORM_VERSION;
   }
 
-  return addDependenciesToPackageJson(tree, dependencies, {});
+  return addDependenciesToPackageJson(tree, dependencies, devDependencies);
 }
 
 export default function configurationGenerator(
@@ -53,6 +64,10 @@ export default function configurationGenerator(
   );
 
   addDependencies(tree, schema);
+
+  if (schema.deploymentConfigurationEnabled) {
+    deploymentConfigurationGenerator(tree);
+  }
 }
 
 export function getConfiguration(tree: Tree): ConfigurationGeneratorSchema {

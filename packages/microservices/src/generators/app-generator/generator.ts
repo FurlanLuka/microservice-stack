@@ -10,13 +10,16 @@ import { libraryGenerator } from '../library-generator/generator';
 import { createConstantsLibraryFiles } from './lib/create-constants-library-files';
 import { createDtoLibraryFiles } from './lib/create-dto-library-files';
 import { addMigrationGenerationTarget } from './lib/add-migration-generation-target';
+import serviceDeploymentGenerator from '../service-deployment-generator/generator';
 
 export default async function applicationGenerator(
   tree: Tree,
   { applicationName, includeQueue, includeDatabase }: ApplicationGeneratorSchema
 ): Promise<void> {
-  const { organisationName }: ConfigurationGeneratorSchema =
-    getConfiguration(tree);
+  const {
+    organisationName,
+    deploymentConfigurationEnabled,
+  }: ConfigurationGeneratorSchema = getConfiguration(tree);
 
   await nestApplicationGenerator(tree, {
     name: applicationName,
@@ -70,6 +73,10 @@ export default async function applicationGenerator(
   createDtoLibraryFiles(tree, `${libraryRoot}/data-transfer-objects`);
 
   if (includeDatabase) {
-    addMigrationGenerationTarget(tree, `api-${applicationName}`)
+    addMigrationGenerationTarget(tree, `api-${applicationName}`);
+  }
+
+  if (deploymentConfigurationEnabled) {
+    serviceDeploymentGenerator(tree, { applicationName });
   }
 }

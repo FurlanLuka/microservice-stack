@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: default
+  name: ingress-controller
+  annotations:
+    {{- if eq .Values.environment "local" }}
+    kubernetes.io/ingress.class: nginx
+    {{- else }}
+    alb.ingress.kubernetes.io/group.name: ingress-controller
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /health
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: '10'
+    alb.ingress.kubernetes.io/certificate-arn: {{ .Values.productionConfig.sslCertificateArn }}
+    {{- end }}
+spec:
+  rules:
+    {{- if eq .Values.environment "local"}}
+    - http:
+    {{- else }}
+    - host: {{ .Values.productionConfig.domain }}
+      http:
+    {{- end }}
+        paths:
+          {{- range $endpoints := .Values.endpoints }}
+          - path: {{ $endpoints.path }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $endpoints.serviceName }}
+                port:
+                  number: 80
+          {{- end }}
+    {{- if .Values.websocketConfig }}
+    {{- if eq .Values.environment "local"}}
+    - http:
+    {{- else }}
+    - host: {{ .Values.websocketConfig.domain }}
+      http:
+    {{- end }}
+        paths:
+          - path: '/'
+            pathType: Prefix
+            backend:
+              service: {{ .Values.websocketConfig.websocketServiceName }}
+              port:
+                number: 80
+    {{- end}}
