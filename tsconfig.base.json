@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@microservice-stack/microservices": [
-        "packages/microservices/src/index.ts"
+      "@microservice-stack/workspace": [
+        "packages/workspace/src/index.ts"
       ],
       "@microservice-stack/module-config": [
         "libs/nest-modules/config/src/index.ts"

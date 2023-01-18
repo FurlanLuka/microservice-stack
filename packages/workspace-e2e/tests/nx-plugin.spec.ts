@@ -6,7 +6,7 @@ import {
   uniq,
 } from '@nrwl/nx-plugin/testing';
 
-describe('microservices e2e', () => {
+describe('workspace e2e', () => {
   // Setting up individual workspaces per
   // test can cause e2e runs to take a long time.
   // For this reason, we recommend each suite only
@@ -15,8 +15,8 @@ describe('microservices e2e', () => {
   // are not dependant on one another.
   beforeAll(() => {
     ensureNxProject(
-      '@microservice-stack/microservices',
-      'dist/packages/microservices'
+      '@microservice-stack/workspace',
+      'dist/packages/workspace'
     );
   });
 
@@ -26,10 +26,10 @@ describe('microservices e2e', () => {
     runNxCommandAsync('reset');
   });
 
-  it('should create microservices', async () => {
-    const project = uniq('microservices');
+  it('should create workspace', async () => {
+    const project = uniq('workspace');
     await runNxCommandAsync(
-      `generate @microservice-stack/microservices:microservices ${project}`
+      `generate @microservice-stack/workspace:workspace ${project}`
     );
     const result = await runNxCommandAsync(`build ${project}`);
     expect(result.stdout).toContain('Executor ran');
@@ -37,9 +37,9 @@ describe('microservices e2e', () => {
 
   describe('--directory', () => {
     it('should create src in the specified directory', async () => {
-      const project = uniq('microservices');
+      const project = uniq('workspace');
       await runNxCommandAsync(
-        `generate @microservice-stack/microservices:microservices ${project} --directory subdir`
+        `generate @microservice-stack/workspace:workspace ${project} --directory subdir`
       );
       expect(() =>
         checkFilesExist(`libs/subdir/${project}/src/index.ts`)
@@ -49,13 +49,13 @@ describe('microservices e2e', () => {
 
   describe('--tags', () => {
     it('should add tags to the project', async () => {
-      const projectName = uniq('microservices');
+      const projectName = uniq('workspace');
       ensureNxProject(
-        '@microservice-stack/microservices',
-        'dist/packages/microservices'
+        '@microservice-stack/workspace',
+        'dist/packages/workspace'
       );
       await runNxCommandAsync(
-        `generate @microservice-stack/microservices:microservices ${projectName} --tags e2etag,e2ePackage`
+        `generate @microservice-stack/workspace:workspace ${projectName} --tags e2etag,e2ePackage`
       );
       const project = readJson(`libs/${projectName}/project.json`);
       expect(project.tags).toEqual(['e2etag', 'e2ePackage']);

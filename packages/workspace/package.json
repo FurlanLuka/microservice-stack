@@ -1,5 +1,5 @@
 {
-  "name": "@microservice-stack/microservices",
+  "name": "@microservice-stack/workspace",
   "version": "0.0.8",
   "main": "src/index.js",
   "generators": "./generators.json",

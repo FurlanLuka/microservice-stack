@@ -1,35 +1,35 @@
 {
-  "name": "microservices",
+  "name": "workspace",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/microservices/src",
+  "sourceRoot": "packages/workspace/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/microservices",
-        "main": "packages/microservices/src/index.ts",
-        "tsConfig": "packages/microservices/tsconfig.lib.json",
+        "outputPath": "dist/packages/workspace",
+        "main": "packages/workspace/src/index.ts",
+        "tsConfig": "packages/workspace/tsconfig.lib.json",
         "assets": [
-          "packages/microservices/*.md",
+          "packages/workspace/*.md",
           {
-            "input": "./packages/microservices/src",
+            "input": "./packages/workspace/src",
             "glob": "**/!(*.ts)",
             "output": "./src"
           },
           {
-            "input": "./packages/microservices/src",
+            "input": "./packages/workspace/src",
             "glob": "**/*.d.ts",
             "output": "./src"
           },
           {
-            "input": "./packages/microservices",
+            "input": "./packages/workspace",
             "glob": "generators.json",
             "output": "."
           },
           {
-            "input": "./packages/microservices",
+            "input": "./packages/workspace",
             "glob": "executors.json",
             "output": "."
           }
@@ -41,10 +41,10 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "packages/microservices/**/*.ts",
-          "packages/microservices/generators.json",
-          "packages/microservices/executors.json",
-          "packages/microservices/package.json"
+          "packages/workspace/**/*.ts",
+          "packages/workspace/generators.json",
+          "packages/workspace/executors.json",
+          "packages/workspace/package.json"
         ]
       }
     },
@@ -52,7 +52,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/microservices/jest.config.ts",
+        "jestConfig": "packages/workspace/jest.config.ts",
         "passWithNoTests": true
       }
     }

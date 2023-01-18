@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'microservices',
+  displayName: 'workspace',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +11,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/packages/microservices',
+  coverageDirectory: '../../coverage/packages/workspace',
 };
