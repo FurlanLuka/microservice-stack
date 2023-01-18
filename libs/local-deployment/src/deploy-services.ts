@@ -87,7 +87,7 @@ async function deploy(services: string[], debugEnabled: boolean) {
 export async function deployServices(debugEnabled: boolean) {
   const services: string[] = await getServiceList(debugEnabled);
 
-  await buildBaseImage()
+  await buildBaseImage(debugEnabled)
   await build(services, debugEnabled);
   await deploy(services, debugEnabled);
 }
@@ -99,7 +99,7 @@ export async function deployService(service: string, debugEnabled: boolean) {
     throw new Error('This service does not exist.');
   }
 
-  await buildBaseImage()
+  await buildBaseImage(debugEnabled)
   await build([service], debugEnabled);
   await deploy([service], debugEnabled);
 }
