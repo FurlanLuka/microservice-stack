@@ -4,6 +4,8 @@ import {
   Tree,
 } from '@nrwl/devkit';
 import {
+  CLASS_TRANSFORMER_VERSION,
+  CLASS_VALIDATOR_VERSION,
   MICROSERVICE_STACK_VERSION,
   NESTJS_TYPEORM_VERSION,
   TYPEORM_VERSION,
@@ -20,6 +22,8 @@ function addDependencies(tree: Tree): GeneratorCallback {
     '@microservice-stack/module-config': MICROSERVICE_STACK_VERSION,
     '@microservice-stack/module-typeorm-migrations': MICROSERVICE_STACK_VERSION,
     '@nestjs/typeorm': NESTJS_TYPEORM_VERSION,
+    'class-validator': CLASS_VALIDATOR_VERSION,
+    'class-transformer': CLASS_TRANSFORMER_VERSION,
     'typeorm': TYPEORM_VERSION,
   };
 

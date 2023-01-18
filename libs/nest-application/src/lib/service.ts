@@ -26,7 +26,7 @@ export async function startService(
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.enableCors();
 
-  await app.listen(process.env.PORT ?? 80);
+  await app.listen(process.env.PORT ?? 80, '0.0.0.0');
 
   return app;
 }
