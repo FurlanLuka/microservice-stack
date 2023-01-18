@@ -5,7 +5,7 @@ import * as fs from 'fs';
 
 export default async function runExecutor(options: BuildExecutorSchema) {
   const { stdout, stderr } = await promisify(exec)(
-    `nx run ${options.applicationName}:build`
+    `nx run ${options.applicationName}:build-npx`
   );
 
   console.log(stdout);

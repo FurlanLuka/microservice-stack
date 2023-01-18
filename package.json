@@ -41,12 +41,16 @@
     "util": "^0.12.5"
   },
   "dependencies": {
+    "@golevelup/nestjs-discovery": "^3.0.0",
+    "@golevelup/nestjs-rabbitmq": "^3.4.0",
     "@nestjs/common": "^9.2.1",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.2.1",
     "@nestjs/platform-express": "^9.2.1",
     "@nestjs/platform-fastify": "^9.2.1",
     "@swc/helpers": "~0.4.14",
+    "amqp-connection-manager": "^4.1.10",
+    "amqplib": "^0.10.3",
     "nest-winston": "^1.8.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",

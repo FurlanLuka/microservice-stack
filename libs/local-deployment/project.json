@@ -4,14 +4,14 @@
   "sourceRoot": "libs/local-deployment/src",
   "projectType": "library",
   "targets": {
-    "build-npx": {
+    "build": {
       "executor": "@microservice-stack/npx-build:build",
       "options": {
         "applicationName": "local-deployment",
         "outputPath": "dist/libs/local-deployment"
       }
     },
-    "build": {
+    "build-npx": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
