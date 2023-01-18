@@ -3,6 +3,8 @@ import { Tree, readJson } from '@nrwl/devkit';
 
 import configurationGenerator from './generator';
 import {
+  CLASS_TRANSFORMER_VERSION,
+  CLASS_VALIDATOR_VERSION,
   MICROSERVICE_STACK_VERSION,
   NESTJS_TYPEORM_VERSION,
   TYPEORM_VERSION,
@@ -37,6 +39,12 @@ describe('Configuration generator', () => {
     ).toStrictEqual(MICROSERVICE_STACK_VERSION);
     expect(packageJson.dependencies['@nestjs/typeorm']).toStrictEqual(
       NESTJS_TYPEORM_VERSION
+    );
+    expect(packageJson.dependencies['class-validator']).toStrictEqual(
+      CLASS_VALIDATOR_VERSION
+    );
+    expect(packageJson.dependencies['class-transformer']).toStrictEqual(
+      CLASS_TRANSFORMER_VERSION
     );
     expect(packageJson.dependencies['typeorm']).toStrictEqual(TYPEORM_VERSION);
   });
