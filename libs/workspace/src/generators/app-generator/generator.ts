@@ -8,7 +8,6 @@ import { libraryGenerator } from '../library-generator/generator';
 import { createConstantsLibraryFiles } from './lib/create-constants-library-files';
 import { createDtoLibraryFiles } from './lib/create-dto-library-files';
 import { addMigrationGenerationTarget } from './lib/add-migration-generation-target';
-import serviceDeploymentGenerator from '../service-deployment-generator/generator';
 
 export default async function applicationGenerator(
   tree: Tree,
@@ -68,5 +67,4 @@ export default async function applicationGenerator(
   createDtoLibraryFiles(tree, `${libraryRoot}/data-transfer-objects`);
 
   addMigrationGenerationTarget(tree, `api-${applicationName}`);
-  serviceDeploymentGenerator(tree, applicationName);
 }

@@ -4,7 +4,6 @@ import { Tree, readProjectConfiguration } from '@nrwl/devkit';
 import appLibraryGenerator from './generator';
 import applicationGenerator from '../app-generator/generator';
 import { AppLibraryGeneratorSchema } from './schema';
-import configurationGenerator from '../configuration-generator/generator';
 
 const defaultAppLibrarySchema: AppLibraryGeneratorSchema = {
   appName: 'api-test',
@@ -16,11 +15,6 @@ describe('Application library generator', () => {
 
   beforeEach(() => {
     tree = createTreeWithEmptyWorkspace({ layout: 'apps-libs' });
-
-    configurationGenerator(tree, {
-      deploymentConfigurationEnabled: false,
-      organisationName: 'microservice-stack',
-    });
   });
 
   it('should fail generating lib because application does not exist', async () => {

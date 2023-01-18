@@ -1,6 +1,6 @@
 import { generateFiles, joinPathFragments, Tree } from '@nrwl/devkit';
 
-interface Options { 
+interface Options {
   includeQueue: boolean;
   includeDatabase: boolean;
   organisationName: string;
@@ -10,7 +10,7 @@ interface Options {
 export function createApplicationFiles(
   tree: Tree,
   applicationRoot: string,
-  options: Options,
+  options: Options
 ) {
   generateFiles(
     tree,
@@ -18,7 +18,7 @@ export function createApplicationFiles(
     joinPathFragments(applicationRoot, 'src'),
     {
       tmpl: '',
-      ...options
+      ...options,
     }
   );
   generateFiles(
@@ -27,7 +27,17 @@ export function createApplicationFiles(
     joinPathFragments(applicationRoot),
     {
       tmpl: '',
-      ...options
+      ...options,
+    }
+  );
+
+  generateFiles(
+    tree,
+    joinPathFragments(__dirname, '..', 'files/application/deployment'),
+    applicationRoot,
+    {
+      tmpl: '',
+      ...options,
     }
   );
 }

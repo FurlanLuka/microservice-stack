@@ -3,7 +3,6 @@ import { Tree, readProjectConfiguration } from '@nrwl/devkit';
 
 import applicationGenerator from './generator';
 import { ApplicationGeneratorSchema } from './schema';
-import configurationGenerator from '../configuration-generator/generator';
 
 const defaultSchema: ApplicationGeneratorSchema = {
   applicationName: 'test',
@@ -16,11 +15,6 @@ describe('Application generate generator', () => {
 
   beforeEach(() => {
     tree = createTreeWithEmptyWorkspace({ layout: 'apps-libs' });
-
-    configurationGenerator(tree, {
-      deploymentConfigurationEnabled: false,
-      organisationName: 'microservice-stack',
-    });
   });
 
   it('should generate application and default libraries', async () => {

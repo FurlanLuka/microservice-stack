@@ -33,7 +33,7 @@
       "@microservice-stack/nest-application": [
         "libs/nest-application/src/index.ts"
       ],
-      "@microservice-stack/workspace": ["packages/workspace/src/index.ts"],
+      "@microservice-stack/workspace": ["libs/workspace/src/index.ts"],
       "@microservice-stack/npx-build": ["libs/npx-build/src/index.ts"]
     }
   },

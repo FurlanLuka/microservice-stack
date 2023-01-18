@@ -8,11 +8,6 @@
       "schema": "./src/generators/configuration-generator/schema.json",
       "description": "Microservice stack configuration generator"
     },
-    "service-deployment-generator": {
-      "factory": "./src/generators/service-deployment-generator/generator",
-      "schema": "./src/generators/service-deployment-generator/schema.json",
-      "description": "Service deployment configuration generator"
-    },
     "application-generator": {
       "factory": "./src/generators/app-generator/generator",
       "schema": "./src/generators/app-generator/schema.json",

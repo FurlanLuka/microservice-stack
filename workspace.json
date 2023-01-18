@@ -9,7 +9,7 @@
     "nest-modules-health": "libs/nest-modules/health",
     "nest-modules-rabbitmq": "libs/nest-modules/rabbitmq",
     "nest-modules-typeorm-migrations": "libs/nest-modules/typeorm-migrations",
-    "workspace": "packages/workspace",
+    "workspace": "libs/workspace",
     "workspace-e2e": "packages/workspace-e2e"
   }
 }

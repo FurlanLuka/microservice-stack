@@ -1,35 +1,35 @@
 {
   "name": "workspace",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/workspace/src",
+  "sourceRoot": "libs/workspace/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/workspace",
-        "main": "packages/workspace/src/index.ts",
-        "tsConfig": "packages/workspace/tsconfig.lib.json",
+        "outputPath": "dist/libs/workspace",
+        "main": "libs/workspace/src/index.ts",
+        "tsConfig": "libs/workspace/tsconfig.lib.json",
         "assets": [
-          "packages/workspace/*.md",
+          "libs/workspace/*.md",
           {
-            "input": "./packages/workspace/src",
+            "input": "./libs/workspace/src",
             "glob": "**/!(*.ts)",
             "output": "./src"
           },
           {
-            "input": "./packages/workspace/src",
+            "input": "./libs/workspace/src",
             "glob": "**/*.d.ts",
             "output": "./src"
           },
           {
-            "input": "./packages/workspace",
+            "input": "./libs/workspace",
             "glob": "generators.json",
             "output": "."
           },
           {
-            "input": "./packages/workspace",
+            "input": "./libs/workspace",
             "glob": "executors.json",
             "output": "."
           }
@@ -41,10 +41,10 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "packages/workspace/**/*.ts",
-          "packages/workspace/generators.json",
-          "packages/workspace/executors.json",
-          "packages/workspace/package.json"
+          "libs/workspace/**/*.ts",
+          "libs/workspace/generators.json",
+          "libs/workspace/executors.json",
+          "libs/workspace/package.json"
         ]
       }
     },
@@ -52,7 +52,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/workspace/jest.config.ts",
+        "jestConfig": "libs/workspace/jest.config.ts",
         "passWithNoTests": true
       }
     }
