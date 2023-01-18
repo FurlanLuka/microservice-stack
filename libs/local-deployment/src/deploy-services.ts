@@ -32,7 +32,7 @@ async function build(services: string[], debugEnabled: boolean) {
         console.log(`Building ${service}...`);
 
         await execAsync(
-          `eval $(minikube docker-env) DOCKER_SCAN_SUGGEST=false docker build -f apps/api/${service}/Dockerfile.local -t ${service}:latest .`
+          `eval $(minikube docker-env) && DOCKER_SCAN_SUGGEST=false docker build -f apps/api/${service}/Dockerfile.local -t ${service}:latest .`
         );
 
         console.log(`${service} build successful ✅`);
