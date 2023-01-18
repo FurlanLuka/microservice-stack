@@ -4,32 +4,5 @@
   "$id": "ConfigurationGeneratorPlugin",
   "title": "",
   "type": "object",
-  "properties": {
-    "organisationName": {
-      "type": "string",
-      "description": "What is the name of your organisation?",
-      "x-prompt": "What is the name of your organisation?"
-    },
-    "deploymentConfigurationEnabled": {
-      "type": "boolean",
-      "description": "Enable deployment configuration?",
-      "x-prompt": "Enable deployment configuration?"
-    },
-    "includeQueue": {
-      "type": "boolean",
-      "description": "Enable queue configuration? (only with deployment enabled)",
-      "x-prompt": "Enable queue configuration? (only with deployment enabled)"
-    },
-    "includeRedis": {
-      "type": "boolean",
-      "description": "Enable redis configuration? (only with deployment enabled)",
-      "x-prompt": "Enable redis configuration? (only with deployment enabled)"
-    },
-    "includeDatabase": {
-      "type": "boolean",
-      "description": "Enable database configuration? (only with deployment enabled)",
-      "x-prompt": "Enable database configuration? (only with deployment enabled)"
-    }
-  },
-  "required": ["organisationName", "deploymentConfigurationEnabled"]
+  "properties": {}
 }

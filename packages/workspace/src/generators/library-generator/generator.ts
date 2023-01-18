@@ -4,15 +4,12 @@ import { libraryGenerator as nestLibraryGenerator } from '@nrwl/nest';
 import { Linter } from '@nrwl/linter';
 import { deleteFiles } from '../../utils/delete-files';
 import { createFiles } from './lib/create-files';
-import { getConfiguration } from '../configuration-generator/generator';
-import { ConfigurationGeneratorSchema } from '../configuration-generator/schema';
 
 export async function libraryGenerator(
   tree: Tree,
   { libraryName, projectName, libraryType }: LibraryGeneratorSchema
 ): Promise<void> {
-  const { organisationName }: ConfigurationGeneratorSchema =
-    getConfiguration(tree);
+  const workspace = getWorkspaceLayout(tree);
 
   const tags: string[] = [];
 
@@ -28,7 +25,7 @@ export async function libraryGenerator(
     buildable: false,
     controller: false,
     directory: `api/${projectName}`,
-    importPath: `@${organisationName}/api/${projectName}/${libraryName}`,
+    importPath: `@${workspace.npmScope}/api/${projectName}/${libraryName}`,
     linter: Linter.EsLint,
     service: false,
     publishable: false,
@@ -36,7 +33,7 @@ export async function libraryGenerator(
   });
 
   const libraryRoot: string = joinPathFragments(
-    getWorkspaceLayout(tree).libsDir,
+    workspace.libsDir,
     `api/${projectName}/${libraryName}`
   );
 

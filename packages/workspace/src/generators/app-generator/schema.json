@@ -22,5 +22,5 @@
       "x-prompt": "Enable database configuration? (only with deployment enabled)"
     }
   },
-  "required": ["applicationName", "includeQueue", "includeDatabase"]
+  "required": ["applicationName"]
 }

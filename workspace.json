@@ -2,12 +2,14 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "workspace": "packages/workspace",
-    "workspace-e2e": "packages/workspace-e2e",
+    "npx-build": "libs/npx-build",
+    "local-deployment": "libs/local-deployment",
     "nest-application": "libs/nest-application",
     "nest-modules-config": "libs/nest-modules/config",
     "nest-modules-health": "libs/nest-modules/health",
     "nest-modules-rabbitmq": "libs/nest-modules/rabbitmq",
-    "nest-modules-typeorm-migrations": "libs/nest-modules/typeorm-migrations"
+    "nest-modules-typeorm-migrations": "libs/nest-modules/typeorm-migrations",
+    "workspace": "packages/workspace",
+    "workspace-e2e": "packages/workspace-e2e"
   }
 }

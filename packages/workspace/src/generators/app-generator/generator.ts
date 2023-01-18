@@ -4,8 +4,6 @@ import { applicationGenerator as nestApplicationGenerator } from '@nrwl/nest';
 import { Linter } from '@nrwl/linter';
 import { deleteFiles } from '../../utils/delete-files';
 import { createApplicationFiles } from './lib/create-application-files';
-import { ConfigurationGeneratorSchema } from '../configuration-generator/schema';
-import { getConfiguration } from '../configuration-generator/generator';
 import { libraryGenerator } from '../library-generator/generator';
 import { createConstantsLibraryFiles } from './lib/create-constants-library-files';
 import { createDtoLibraryFiles } from './lib/create-dto-library-files';
@@ -16,10 +14,7 @@ export default async function applicationGenerator(
   tree: Tree,
   { applicationName, includeQueue, includeDatabase }: ApplicationGeneratorSchema
 ): Promise<void> {
-  const {
-    organisationName,
-    deploymentConfigurationEnabled,
-  }: ConfigurationGeneratorSchema = getConfiguration(tree);
+  const workspace = getWorkspaceLayout(tree)
 
   await nestApplicationGenerator(tree, {
     name: applicationName,
@@ -30,7 +25,7 @@ export default async function applicationGenerator(
   });
 
   const applicationRoot: string = joinPathFragments(
-    getWorkspaceLayout(tree).appsDir,
+    workspace.appsDir,
     `api/${applicationName}`
   );
 
@@ -40,7 +35,7 @@ export default async function applicationGenerator(
     includeQueue: includeQueue ?? false,
     includeDatabase: includeDatabase ?? false,
     applicationName,
-    organisationName,
+    organisationName: workspace.npmScope,
   });
 
   const libraryRoot: string = joinPathFragments(
@@ -72,11 +67,6 @@ export default async function applicationGenerator(
 
   createDtoLibraryFiles(tree, `${libraryRoot}/data-transfer-objects`);
 
-  if (includeDatabase) {
-    addMigrationGenerationTarget(tree, `api-${applicationName}`);
-  }
-
-  if (deploymentConfigurationEnabled) {
-    serviceDeploymentGenerator(tree, { applicationName });
-  }
+  addMigrationGenerationTarget(tree, `api-${applicationName}`);
+  serviceDeploymentGenerator(tree, applicationName);
 }
