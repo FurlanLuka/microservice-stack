@@ -1,29 +1,13 @@
-FROM node:16-alpine as builder
-WORKDIR /service
-
-ARG LOCAL
-
-COPY . /service
-
-ENV NX_DAEMON=false
-
-RUN npm i --ignore-scripts
-RUN npx nx run api-<%= applicationName %>:build --skip-nx-cache
-RUN cp apps/api/<%= applicationName %>/.env dist/apps/api/<%= applicationName %>
-RUN npm prune --production
-
-FROM node:16-alpine
-
-ARG LOCAL
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
 
 WORKDIR /service
 
-COPY --from=builder /service/package*.json /service/
-COPY --from=builder /service/node_modules/ /service/node_modules/
-COPY --from=builder /service/dist/apps/api/<%= applicationName %> /service/dist/
-
-RUN cp ./dist/.env ./
+COPY dist/apps/api/<%= applicationName %>/ /service
+COPY apps/api/<%= applicationName %>/.env /service/
 
 USER node
 
-CMD ["node", "dist/main.js"]
+WORKDIR /
+
+CMD ["/bin/sh"]

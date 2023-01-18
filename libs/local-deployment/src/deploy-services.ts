@@ -25,6 +25,19 @@ async function getServiceList(debugEnabled: boolean): Promise<string[]> {
   }
 }
 
+async function buildBaseImage(debugEnabled: boolean) {
+  try {
+    await execAsync(
+      `eval $(minikube docker-env) && DOCKER_SCAN_SUGGEST=false docker build -f infrastructure/local/Dockerfile.prebuild -t service-prebuild:latest .`
+    );
+  } catch (error) {
+    if (debugEnabled) {
+      console.error(JSON.stringify(error, null, 2));
+    }
+    throw new Error('Error while building microservices');
+  }
+}
+
 async function build(services: string[], debugEnabled: boolean) {
   try {
     await Promise.all(
@@ -32,7 +45,7 @@ async function build(services: string[], debugEnabled: boolean) {
         console.log(`Building ${service}...`);
 
         await execAsync(
-          `eval $(minikube docker-env) && DOCKER_SCAN_SUGGEST=false docker build -f apps/api/${service}/Dockerfile.local -t ${service}:latest .`
+          `nx run api-${service}:build && eval $(minikube docker-env) && DOCKER_SCAN_SUGGEST=false docker build -f apps/api/${service}/Dockerfile.local --build-arg BASE_IMAGE=service-prebuild:latest -t ${service}:latest .`
         );
 
         console.log(`${service} build successful ✅`);
@@ -53,7 +66,7 @@ async function deploy(services: string[], debugEnabled: boolean) {
         console.log(`Deploying ${service}...`);
 
         await execAsync(
-          `helm upgrade --install ${service} infrastructure/charts/node-service --set tag=latest --set image=${service} --set environment=local --set service.name=${service}`
+          `helm upgrade --install ${service} infrastructure/charts/node-service --set version=latest --set image=${service} --set environment=local --set service.name=${service}`
         );
 
         console.log(`${service} deployed ✅`);
