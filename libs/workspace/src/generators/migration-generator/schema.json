@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "$id": "TypeormMigrationGenerator",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "applicationName": {
+      "description": "The application to target",
+      "type": "string",
+      "$default": {
+        "$source": "projectName"
+      },
+      "x-prompt": "What application would you like to target?"
+    }
+  },
+  "required": ["applicationName"]
+}

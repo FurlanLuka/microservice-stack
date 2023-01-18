@@ -1,0 +1,61 @@
+{
+  "name": "npx-build",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/npx-build/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/npx-build",
+        "main": "libs/npx-build/src/index.ts",
+        "tsConfig": "libs/npx-build/tsconfig.lib.json",
+        "assets": [
+          "libs/npx-build/*.md",
+          {
+            "input": "./libs/npx-build/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/npx-build/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/npx-build",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./libs/npx-build",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/npx-build/**/*.ts",
+          "libs/npx-build/generators.json",
+          "libs/npx-build/executors.json",
+          "libs/npx-build/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/npx-build/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

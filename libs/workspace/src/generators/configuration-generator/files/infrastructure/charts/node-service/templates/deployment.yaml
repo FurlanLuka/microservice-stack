@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: '{{ .Values.service.name }}'
+  labels:
+    app: '{{ .Values.service.name }}'
+spec:
+  selector:
+    matchLabels:
+      app: '{{ .Values.service.name }}'
+  replicas: {{ .Values.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: '{{ .Values.service.name }}'
+        helm-revision: '{{ .Release.Revision }}'
+    spec:
+      containers:
+        - name: '{{ .Values.service.name }}'
+          image: '{{ .Values.image }}:{{ .Values.version }}'
+          {{- if eq .Values.environment "local" }}
+          imagePullPolicy: Never
+          {{- else }}
+          imagePullPolicy: Always
+          {{- end }}
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            httpGet:
+              path: /health
+              port: 80
+          resources:
+            requests:
+              memory: '{{ .Values.resources.request.memory }}'
+              cpu: '{{ .Values.resources.request.cpu }}'
+            limits:
+              memory: '{{ .Values.resources.limits.memory }}'
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: '{{ .Values.service.name }}-service'
+  labels:
+    app: '{{ .Values.service.name }}-service'
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: '{{ .Values.service.name }}'
+{{- if .Values.autoscaling.enabled }}
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: '{{ .Values.service.name }}-autoscaler'
+spec:
+  minReplicas: {{ .Values.replicas }}
+  maxReplicas: {{ .Values.autoscaling.maxReplicas }}
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: '{{ .Values.service.name }}'
+  metrics:
+    {{- if .Values.autoscaling.memory }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+    {{- end }}
+    {{- if .Values.autoscaling.cpu }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    {{- end }}
+  {{- end }}
+

@@ -1,0 +1,33 @@
+## Environment name
+environment: "local"
+
+## Docker image name set in CI
+image: ''
+## Docker image version set in CI
+version: ''
+
+service:
+  ## Service name. Service name MUST be specified by each service
+  name: ''
+  ## Service start / entrypoint command
+  command: "node service/main.js"
+
+## Minimum number of replicas
+replicas: 1
+
+resources:
+  request:
+    memory: "256Mi"
+    cpu: '250m'
+  limits:
+    memory: "292Mi"
+
+autoscaling:
+  ## Enable autoscaling. In case this is set as false, no autoscaling rules will be applied
+  enabled: true
+  ## Autoscaling when memory consumption hits 80%
+  memory: true
+  ## Autoscaling when cpu consumption hits 80%
+  cpu: true
+  ## Maximum number of replicas
+  maxReplicas: 3

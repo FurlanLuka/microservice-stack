@@ -1,0 +1,5 @@
+<% for(let x = 0; x < migrations.length; x++) { %>import { <%= migrations[x] %> } from './migrations/<%= migrations[x] %>';
+<% } %>
+export const migrations = [
+  <% for(let x = 0; x < migrations.length; x++) { %><%= migrations[x] %>,
+  <% } %>]

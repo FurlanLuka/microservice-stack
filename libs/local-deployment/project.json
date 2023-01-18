@@ -1,0 +1,49 @@
+{
+  "name": "local-deployment",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/local-deployment/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@microservice-stack/npx-build:build",
+      "options": {
+        "applicationName": "local-deployment",
+        "outputPath": "dist/libs/local-deployment"
+      }
+    },
+    "build-npx": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/local-deployment",
+        "tsConfig": "libs/local-deployment/tsconfig.lib.json",
+        "packageJson": "libs/local-deployment/package.json",
+        "main": "libs/local-deployment/src/index.ts",
+        "assets": ["libs/local-deployment/*.md"]
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs local-deployment {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/local-deployment/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/local-deployment/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

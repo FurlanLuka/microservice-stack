@@ -1,0 +1,29 @@
+## Environment name. Set per environment (production | development)
+# enviroment: ''
+service:
+## Service name. Service name MUST be specified by each service
+  name: "<%= applicationName %>"
+## Service start / entrypoint command
+  # command: "node service/main.js"
+
+## Minimum number of replicas
+# replicas: 1
+
+## Resource request/limits
+# resources:
+#   request:
+#     memory: "256Mi"
+#     cpu: '250m'
+#   limits:
+#     memory: "292Mi"
+
+## Autoscaling configuration
+# autoscaling:
+## Enable autoscaling. In case this is set as false, no autoscaling rules will be applied
+  # enabled: true
+## Autoscaling when memory consumption hits 80%
+  # memory: true
+## Autoscaling when cpu consumption hits 80%
+  # cpu: true
+## Autoscaling maximum replicas. Minimum replicas equals to the initial amount of replicas
+  # maxReplicas: 3

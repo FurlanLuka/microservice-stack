@@ -1,0 +1,9 @@
+auth:
+  postgresPassword: "postgres"
+  username: "postgres"
+  password: "postgres"
+  database: "postgres"
+  secretKeys:
+    adminPasswordKey: "postgres"
+    userPasswordKey: "postgres"
+    replicationPasswordKey: "postgres"

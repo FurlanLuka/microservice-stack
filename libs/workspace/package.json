@@ -1,0 +1,17 @@
+{
+  "name": "@microservice-stack/workspace",
+  "version": "0.0.8",
+  "main": "src/index.js",
+  "generators": "./generators.json",
+  "executors": "./executors.json",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@nrwl/linter": "15.4.5",
+    "@nrwl/node": "15.4.5",
+    "@nrwl/devkit": "15.4.5",
+    "@nrwl/js": "15.4.5",
+    "@nrwl/nest": "15.4.5"
+  }
+}

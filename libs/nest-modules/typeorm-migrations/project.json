@@ -1,0 +1,42 @@
+{
+  "name": "nest-modules-typeorm-migrations",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/nest-modules/typeorm-migrations/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/nest-modules/typeorm-migrations",
+        "tsConfig": "libs/nest-modules/typeorm-migrations/tsconfig.lib.json",
+        "packageJson": "libs/nest-modules/typeorm-migrations/package.json",
+        "main": "libs/nest-modules/typeorm-migrations/src/index.ts",
+        "assets": ["libs/nest-modules/typeorm-migrations/*.md"]
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs nest-modules-typeorm-migrations {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/nest-modules/typeorm-migrations/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/nest-modules/typeorm-migrations/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

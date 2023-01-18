@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "workspace",
+  "version": "0.0.4",
+  "generators": {
+    "configuration-generator": {
+      "factory": "./src/generators/configuration-generator/generator",
+      "schema": "./src/generators/configuration-generator/schema.json",
+      "description": "Microservice stack configuration generator"
+    },
+    "application-generator": {
+      "factory": "./src/generators/app-generator/generator",
+      "schema": "./src/generators/app-generator/schema.json",
+      "description": "Application generator"
+    },
+    "application-library-generator": {
+      "factory": "./src/generators/app-library-generator/generator",
+      "schema": "./src/generators/app-library-generator/schema.json",
+      "description": "Application library generator"
+    },
+    "util-library-generator": {
+      "factory": "./src/generators/util-library-generator/generator",
+      "schema": "./src/generators/util-library-generator/schema.json",
+      "description": "Util library generator"
+    }
+  }
+}

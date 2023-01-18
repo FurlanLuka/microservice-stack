@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "$id": "ApplicationGeneratorPlugin",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "applicationName": {
+      "description": "The name of the application",
+      "type": "string",
+      "x-prompt": "What apllication name would you like to pick?"
+    }
+    ,
+    "includeQueue": {
+      "type": "boolean",
+      "description": "Enable queue configuration? (only with deployment enabled)",
+      "x-prompt": "Enable queue configuration? (only with deployment enabled)"
+    },
+    "includeDatabase": {
+      "type": "boolean",
+      "description": "Enable database configuration? (only with deployment enabled)",
+      "x-prompt": "Enable database configuration? (only with deployment enabled)"
+    }
+  },
+  "required": ["applicationName"]
+}

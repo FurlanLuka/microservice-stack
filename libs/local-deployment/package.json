@@ -1,0 +1,17 @@
+{
+  "name": "@microservice-stack/local-deployment",
+  "version": "0.0.9",
+  "type": "commonjs",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "deploy": "src/index.js"
+  },
+  "dependencies": {
+    "util": "^0.12.5",
+    "chalk": "4.1.2",
+    "clear": "^0.1.0",
+    "commander": "^10.0.0"
+  }
+}
