@@ -2,6 +2,7 @@ import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import {
   AmqpConnection,
   RabbitHandlerConfig,
+  RabbitMQExchangeConfig,
   RequestOptions,
 } from '@golevelup/nestjs-rabbitmq';
 import { ChannelWrapper } from 'amqp-connection-manager';
@@ -9,6 +10,8 @@ import { RabbitMQExhangeUtil } from './rabbitmq-exchange.util';
 import { Options } from 'amqplib';
 import { DiscoveryService } from '@golevelup/nestjs-discovery';
 import { RABBIT_RETRY_HANDLER } from './decorators';
+import { DEFAULT_EXCHANGE } from '..';
+import { v4 } from 'uuid';
 
 @Injectable()
 export class RabbitmqService implements OnApplicationBootstrap {
@@ -20,10 +23,19 @@ export class RabbitmqService implements OnApplicationBootstrap {
   public publishEvent<T extends object>(
     routingKey: string,
     message: T,
-    exchange: string,
+    exchange: RabbitMQExchangeConfig = DEFAULT_EXCHANGE,
     options?: Options.Publish
   ): void {
-    this.amqpConnection.publish(exchange, routingKey, message, options);
+    const eventId = v4();
+    const headers = {
+      'event-id': eventId,
+      ...options?.headers,
+    }
+  
+    this.amqpConnection.publish(exchange.name, routingKey, message, {
+      ...options,
+      headers,
+    });
   }
 
   public async request<K = object, T extends object = object>(
