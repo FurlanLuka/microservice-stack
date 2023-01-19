@@ -1,5 +1,5 @@
 import {
-  RabbitMQConfig as IRabbitMQConfig,
+  RabbitMQConfig,
   RabbitMQExchangeConfig,
 } from '@golevelup/nestjs-rabbitmq';
 import {
@@ -9,10 +9,6 @@ import {
   OptionalFactoryDependency,
   Type,
 } from '@nestjs/common';
-
-export interface RabbitMQConfig extends IRabbitMQConfig {
-  enableRetryExchange
-}
 
 export interface RabbitMQExchange extends RabbitMQExchangeConfig {
   initRetryExchange?: boolean;
