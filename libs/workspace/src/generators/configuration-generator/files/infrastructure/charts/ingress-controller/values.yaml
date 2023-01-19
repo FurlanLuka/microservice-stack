@@ -8,6 +8,8 @@ productionConfig:
   sslCertificateArn: ''
 
 websocketConfig:
+  ## Is websocket enabled
+  enabled: false
   ## Websocket domain name (ws.example.com)
   domain: ''
   ## Name of the service that handles websocket connections

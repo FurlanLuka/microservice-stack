@@ -28,6 +28,8 @@ spec:
           {{- else }}
           imagePullPolicy: Always
           {{- end }}
+          args:
+            ['sh', '-c', '{{ .Values.service.command }}']
           ports:
             - containerPort: 80
           livenessProbe:

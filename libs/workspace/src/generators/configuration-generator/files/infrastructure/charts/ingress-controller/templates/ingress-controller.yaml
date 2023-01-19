@@ -34,7 +34,7 @@ spec:
                 port:
                   number: 80
           {{- end }}
-    {{- if .Values.websocketConfig }}
+    {{- if .Values.websocketConfig.enabled }}
     {{- if eq .Values.environment "local"}}
     - http:
     {{- else }}
@@ -42,7 +42,7 @@ spec:
       http:
     {{- end }}
         paths:
-          - path: '/'
+          - path: '/ws'
             pathType: Prefix
             backend:
               service: {{ .Values.websocketConfig.websocketServiceName }}
