@@ -1,5 +1,5 @@
 import {
-  RabbitMQConfig,
+  RabbitMQConfig as IRabbitMQConfig,
   RabbitMQExchangeConfig,
 } from '@golevelup/nestjs-rabbitmq';
 import {
@@ -10,8 +10,8 @@ import {
   Type,
 } from '@nestjs/common';
 
-export interface RabbitMQInitConfig extends RabbitMQConfig {
-  exchanges: RabbitMQExchange[];
+export interface RabbitMQConfig extends IRabbitMQConfig {
+  enableRetryExchange
 }
 
 export interface RabbitMQExchange extends RabbitMQExchangeConfig {
@@ -24,5 +24,5 @@ export interface RabbitMQModuleConfig {
     Type | DynamicModule | Promise<DynamicModule> | ForwardReference
   >;
   inject: (InjectionToken | OptionalFactoryDependency)[];
-  useFactory: (...args: unknown[]) => RabbitMQInitConfig;
+  useFactory: (...args: unknown[]) => RabbitMQConfig;
 }

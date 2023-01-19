@@ -3,43 +3,27 @@ import { RabbitMQExchange } from './rabbitmq.interfaces';
 import { RabbitMQExchangeConfig } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
-export class RabbitmqExchangeUtil {
+export class RabbitMQExhangeUtil {
   public static createExchanges(
     exchanges: RabbitMQExchange[]
   ): RabbitMQExchangeConfig[] {
     return exchanges.flatMap((exchange: RabbitMQExchange) => {
-      const exchangesToCreate: RabbitMQExchangeConfig[] = [exchange];
-
-      if (
-        exchange.initRetryExchange === undefined ||
-        exchange.initRetryExchange
-      ) {
-        const retryExchange: RabbitMQExchangeConfig = {
-          name: RabbitmqExchangeUtil.getRetryExchangeName(exchange.name),
-          type: 'x-delayed-message',
-          options: {
-            arguments: {
-              'x-delayed-type': 'direct',
-            },
+      const retryExchange: RabbitMQExchangeConfig = {
+        name: RabbitMQExhangeUtil.getRetryExchangeName(exchange.name),
+        type: 'x-delayed-message',
+        options: {
+          arguments: {
+            'x-delayed-type': 'direct',
           },
-        };
+        },
+      };
 
-        exchangesToCreate.push(retryExchange);
-      }
+      const deadLetterExchange: RabbitMQExchangeConfig = {
+        name: RabbitMQExhangeUtil.getDeadLetterExchangeName(exchange.name),
+        type: 'direct',
+      };
 
-      if (
-        exchange.initDeadLetterExchange === undefined ||
-        exchange.initDeadLetterExchange
-      ) {
-        const deadLetterExchange: RabbitMQExchangeConfig = {
-          name: RabbitmqExchangeUtil.getDeadLetterExchangeName(exchange.name),
-          type: 'direct',
-        };
-
-        exchangesToCreate.push(deadLetterExchange);
-      }
-
-      return exchangesToCreate;
+      return [exchange, retryExchange, deadLetterExchange];
     });
   }
 

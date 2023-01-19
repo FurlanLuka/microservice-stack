@@ -5,7 +5,7 @@ import {
   RequestOptions,
 } from '@golevelup/nestjs-rabbitmq';
 import { ChannelWrapper } from 'amqp-connection-manager';
-import { RabbitmqExchangeUtil } from './rabbitmq-exchange.util';
+import { RabbitMQExhangeUtil } from './rabbitmq-exchange.util';
 import { Options } from 'amqplib';
 import { DiscoveryService } from '@golevelup/nestjs-discovery';
 import { RABBIT_RETRY_HANDLER } from './decorators';
@@ -99,7 +99,7 @@ export class RabbitmqService implements OnApplicationBootstrap {
     }
 
     const { queue } = await channel.assertQueue(
-      RabbitmqExchangeUtil.getDeadLetterQueueName(meta.queue),
+      RabbitMQExhangeUtil.getDeadLetterQueueName(meta.queue),
       {
         durable: true,
       }
