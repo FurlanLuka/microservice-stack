@@ -19,7 +19,7 @@ export class RabbitmqModule {
             ...config,
             exchanges: RabbitMQExhangeUtil.createExchanges([
               DEFAULT_EXCHANGE,
-              ...config.exchanges,
+              ...(config.exchanges ? config.exchanges : []),
             ]),
           };
         },
