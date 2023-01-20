@@ -9,12 +9,16 @@
       "description": "The name of the application",
       "type": "string",
       "x-prompt": "What apllication name would you like to pick?"
-    }
-    ,
+    },
     "includeQueue": {
       "type": "boolean",
       "description": "Enable queue configuration? (only with deployment enabled)",
       "x-prompt": "Enable queue configuration? (only with deployment enabled)"
+    },
+    "includeRedis": {
+      "type": "boolean",
+      "description": "Enable redis configuration? (only with deployment enabled)",
+      "x-prompt": "Enable redis configuration? (only with deployment enabled)"
     },
     "includeDatabase": {
       "type": "boolean",

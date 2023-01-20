@@ -3,7 +3,8 @@ import { HealthModule } from '@microservice-stack/module-health';
 import { ConfigModule, ConfigService } from '@microservice-stack/module-config';
 import { ConfigVariables } from '@<%= organisationName %>/api/<%= applicationName %>/constants';
 <% if(includeDatabase) { %>import { TypeOrmModule } from '@nestjs/typeorm';
-import { migrations } from './migrations';<% } %>
+import { migrations } from './migrations';<% } %><% if(includeQueue) { %>
+import { RabbitmqModule } from '@microservice-stack/module-rabbitmq';<% } %>
 
 @Module({
   imports: [
@@ -17,8 +18,7 @@ import { migrations } from './migrations';<% } %>
         ConfigVariables.TYPEORM_PORT,
         ConfigVariables.TYPEORM_USERNAME,<% } %>
       ],
-    }),
-    <% if(includeDatabase) { %>
+    }),<% if(includeDatabase) { %>
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -35,8 +35,14 @@ import { migrations } from './migrations';<% } %>
         migrationsRun: true,
       }),
       inject: [ConfigService],
-    }),
-    <% } %>
+    }),<% } if (includeQueue) { %>
+    RabbitmqModule.register({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get(ConfigVariables.QUEUE_URL),
+      }),
+    }),<% } %>
     HealthModule,
   ],
   controllers: [],
