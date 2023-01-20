@@ -10,7 +10,11 @@ import {
 } from '@golevelup/nestjs-rabbitmq/lib/amqp/errorBehaviors';
 import { Channel, ConsumeMessage } from 'amqplib';
 import { RabbitMQExhangeUtil } from '../rabbitmq-exchange.util';
-import { Decorators, SubscriptionOptions } from './interfaces';
+import {
+  Decorators,
+  RequeueOnErrorOptions,
+  SubscriptionOptions,
+} from './interfaces';
 import { Event } from '../event/event';
 import { DEFAULT_EXCHANGE } from '../..';
 
@@ -26,17 +30,23 @@ export function Subscribe(
   const queueSpecificRoutingKey = `${queueName}-${routingKey}`;
   const fullQueueName = `${queueName}-${exchange.name}-routingKey`;
 
+  const requeueOnErrorOptions: RequeueOnErrorOptions = {
+    retry: true,
+    deadLetter: true,
+    retryInitialDelayInMs: 20_000,
+    maxRetries: 5,
+    retryBackoffMultiplier: 2,
+    ...options.requeueOnError,
+  };
+
   const queueOptions: QueueOptions = {
     durable: true,
     arguments: {
-      ...(options.requeueOnError
-        ? {
-            'x-dead-letter-exchange':
-              RabbitMQExhangeUtil.getDeadLetterExchangeName(exchange.name),
-            'x-dead-letter-routing-key': queueSpecificRoutingKey,
-          }
-        : {}),
-      ...(options.queue?.arguments),
+      'x-dead-letter-exchange': RabbitMQExhangeUtil.getDeadLetterExchangeName(
+        exchange.name
+      ),
+      'x-dead-letter-routing-key': queueSpecificRoutingKey,
+      ...options.queue?.arguments,
     },
     ...options.queue,
   };
@@ -46,7 +56,7 @@ export function Subscribe(
     queue: fullQueueName,
     errorHandler: createErrorHandler(
       queueName,
-      options,
+      requeueOnErrorOptions,
       exchange.name,
       event.isSensitive
     ),
@@ -59,25 +69,20 @@ export function Subscribe(
       routingKey: routingKey,
       ...baseMessageHandlerOptions,
     }),
+    SetMetadata(RABBIT_RETRY_HANDLER, {
+      type: 'subscribe',
+      routingKey: queueName,
+      exchange: RabbitMQExhangeUtil.getRetryExchangeName(exchange.name),
+      ...baseMessageHandlerOptions,
+    }),
   ];
-
-  if (options.requeueOnError) {
-    decorators.push(
-      SetMetadata(RABBIT_RETRY_HANDLER, {
-        type: 'subscribe',
-        routingKey: queueName,
-        exchange: RabbitMQExhangeUtil.getRetryExchangeName(exchange.name),
-        ...baseMessageHandlerOptions,
-      })
-    );
-  }
 
   return applyDecorators(...decorators);
 }
 
 function createErrorHandler(
   queueSpecificRoutingKey: string,
-  { requeueOnError }: SubscriptionOptions,
+  requeueOnError: RequeueOnErrorOptions,
   exchangeName: string,
   isSensitive: boolean
 ): (
@@ -98,31 +103,29 @@ function createErrorHandler(
       retryAttempt,
     });
 
-    if (requeueOnError) {
+    if (retryAttempt < requeueOnError.maxRetries) {
       const delay: number =
         messageHeaders['x-delay'] ??
         requeueOnError.retryInitialDelayInMs /
           requeueOnError.retryBackoffMultiplier;
 
-      if (retryAttempt < requeueOnError.maxRetries) {
-        const retryHeaders = {
-          ...messageHeaders,
-          'x-delay': delay * requeueOnError.retryBackoffMultiplier,
-          'x-retry': retryAttempt + 1,
-          'event-id': messageHeaders['event-id'],
-        };
+      const retryHeaders = {
+        ...messageHeaders,
+        'x-delay': delay * requeueOnError.retryBackoffMultiplier,
+        'x-retry': retryAttempt + 1,
+        'event-id': messageHeaders['event-id'],
+      };
 
-        channel.publish(
-          RabbitMQExhangeUtil.getRetryExchangeName(exchangeName),
-          queueSpecificRoutingKey,
-          msg.content,
-          {
-            headers: retryHeaders,
-          }
-        );
-      } else {
-        return pushToDeadLetterQueue(channel, msg, error);
-      }
+      channel.publish(
+        RabbitMQExhangeUtil.getRetryExchangeName(exchangeName),
+        queueSpecificRoutingKey,
+        msg.content,
+        {
+          headers: retryHeaders,
+        }
+      );
+    } else {
+      return pushToDeadLetterQueue(channel, msg, error);
     }
 
     return ackErrorHandler(channel, msg, error);

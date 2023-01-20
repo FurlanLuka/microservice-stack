@@ -1,4 +1,4 @@
-import { DynamicModule, Module, Provider } from '@nestjs/common';
+import { DynamicModule, Logger, Module, Provider } from '@nestjs/common';
 import { RabbitMQConfig, RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { RabbitMQExhangeUtil } from './rabbitmq-exchange.util';
 import { RabbitmqService } from './rabbitmq.service';
@@ -21,6 +21,10 @@ export class RabbitmqModule {
               DEFAULT_EXCHANGE,
               ...(config.exchanges ? config.exchanges : []),
             ]),
+            prefetchCount: 250,
+            enableControllerDiscovery: true,
+            connectionInitOptions: { wait: false },
+            logger: new Logger(),
           };
         },
       }),
