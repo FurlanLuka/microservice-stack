@@ -1,6 +1,6 @@
 export class Event<T> {
   constructor(
-    public routingKey: string,
+    private routingKey: string,
     public version: number,
     public isSensitive?: boolean
   ) {}

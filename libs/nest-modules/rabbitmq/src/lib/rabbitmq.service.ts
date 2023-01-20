@@ -12,6 +12,7 @@ import { DiscoveryService } from '@golevelup/nestjs-discovery';
 import { RABBIT_RETRY_HANDLER } from './decorators';
 import { DEFAULT_EXCHANGE } from '..';
 import { v4 } from 'uuid';
+import { Event } from './event/event';
 
 @Injectable()
 export class RabbitmqService implements OnApplicationBootstrap {
@@ -21,7 +22,7 @@ export class RabbitmqService implements OnApplicationBootstrap {
   ) {}
 
   public publishEvent<T extends object>(
-    routingKey: string,
+    event: Event<T>,
     message: T,
     exchange: RabbitMQExchangeConfig = DEFAULT_EXCHANGE,
     options?: Options.Publish
@@ -32,7 +33,7 @@ export class RabbitmqService implements OnApplicationBootstrap {
       ...options?.headers,
     }
   
-    this.amqpConnection.publish(exchange.name, routingKey, message, {
+    this.amqpConnection.publish(exchange.name, event.getRoutingKey(), message, {
       ...options,
       headers,
     });
