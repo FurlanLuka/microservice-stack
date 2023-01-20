@@ -36,7 +36,7 @@ export function Subscribe(
             'x-dead-letter-routing-key': queueSpecificRoutingKey,
           }
         : {}),
-      ...options.queue.arguments,
+      ...(options.queue?.arguments),
     },
     ...options.queue,
   };
