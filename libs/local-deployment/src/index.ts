@@ -36,7 +36,6 @@ program
 
     try {
       await checkRequirements();
-      await setupCluster(debug);
       await deployService(service, debug);
       await deployIngressController(debug);
     } catch (error) {
