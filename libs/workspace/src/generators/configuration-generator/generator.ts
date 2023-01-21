@@ -20,10 +20,10 @@ function addDependencies(tree: Tree): GeneratorCallback {
   const devDependencies = {};
   const dependencies = {
     '@microservice-stack/nest-application': MICROSERVICE_STACK_VERSION,
-    '@microservice-stack/module-health': MICROSERVICE_STACK_VERSION,
-    '@microservice-stack/module-config': MICROSERVICE_STACK_VERSION,
-    '@microservice-stack/module-rabbitmq': MICROSERVICE_STACK_VERSION,
-    '@microservice-stack/module-typeorm-migrations': MICROSERVICE_STACK_VERSION,
+    '@microservice-stack/nest-health': MICROSERVICE_STACK_VERSION,
+    '@microservice-stack/nest-config': MICROSERVICE_STACK_VERSION,
+    '@microservice-stack/nest-rabbitmq': MICROSERVICE_STACK_VERSION,
+    '@microservice-stack/nest-typeorm-migrations': MICROSERVICE_STACK_VERSION,
     '@nestjs/typeorm': NESTJS_TYPEORM_VERSION,
     'class-validator': CLASS_VALIDATOR_VERSION,
     'class-transformer': CLASS_TRANSFORMER_VERSION,

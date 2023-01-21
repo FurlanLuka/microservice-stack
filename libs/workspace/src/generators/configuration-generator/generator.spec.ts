@@ -26,16 +26,16 @@ describe('Configuration generator', () => {
     const packageJson = readJson(tree, 'package.json');
 
     expect(
-      packageJson.dependencies['@microservice-stack/module-health']
+      packageJson.dependencies['@microservice-stack/nest-health']
     ).toStrictEqual(MICROSERVICE_STACK_VERSION);
     expect(
-      packageJson.dependencies['@microservice-stack/module-config']
+      packageJson.dependencies['@microservice-stack/nest-config']
     ).toStrictEqual(MICROSERVICE_STACK_VERSION);
     expect(
-      packageJson.dependencies['@microservice-stack/module-rabbitmq']
+      packageJson.dependencies['@microservice-stack/nest-rabbitmq']
     ).toStrictEqual(MICROSERVICE_STACK_VERSION);
     expect(
-      packageJson.dependencies['@microservice-stack/module-typeorm-migrations']
+      packageJson.dependencies['@microservice-stack/nest-typeorm-migrations']
     ).toStrictEqual(MICROSERVICE_STACK_VERSION);
     expect(
       packageJson.dependencies['@microservice-stack/nest-application']
