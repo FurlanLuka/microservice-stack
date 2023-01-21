@@ -1,12 +1,12 @@
 import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
 import { Tree, readJson } from '@nrwl/devkit';
-
 import configurationGenerator from './generator';
 import {
   CLASS_TRANSFORMER_VERSION,
   CLASS_VALIDATOR_VERSION,
   MICROSERVICE_STACK_VERSION,
   NESTJS_TYPEORM_VERSION,
+  PG_VERSION,
   TYPEORM_VERSION,
 } from '../../utils/package-versions';
 
@@ -32,6 +32,9 @@ describe('Configuration generator', () => {
       packageJson.dependencies['@microservice-stack/module-config']
     ).toStrictEqual(MICROSERVICE_STACK_VERSION);
     expect(
+      packageJson.dependencies['@microservice-stack/module-rabbitmq']
+    ).toStrictEqual(MICROSERVICE_STACK_VERSION);
+    expect(
       packageJson.dependencies['@microservice-stack/module-typeorm-migrations']
     ).toStrictEqual(MICROSERVICE_STACK_VERSION);
     expect(
@@ -47,5 +50,6 @@ describe('Configuration generator', () => {
       CLASS_TRANSFORMER_VERSION
     );
     expect(packageJson.dependencies['typeorm']).toStrictEqual(TYPEORM_VERSION);
+    expect(packageJson.dependencies['pg']).toStrictEqual(PG_VERSION);
   });
 });

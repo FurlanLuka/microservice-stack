@@ -8,6 +8,7 @@ import {
   CLASS_VALIDATOR_VERSION,
   MICROSERVICE_STACK_VERSION,
   NESTJS_TYPEORM_VERSION,
+  PG_VERSION,
   TYPEORM_VERSION,
 } from '../../utils/package-versions';
 import { createDeploymentFiles } from './lib/create-deployment-files';
@@ -20,11 +21,13 @@ function addDependencies(tree: Tree): GeneratorCallback {
     '@microservice-stack/nest-application': MICROSERVICE_STACK_VERSION,
     '@microservice-stack/module-health': MICROSERVICE_STACK_VERSION,
     '@microservice-stack/module-config': MICROSERVICE_STACK_VERSION,
+    '@microservice-stack/module-rabbitmq': MICROSERVICE_STACK_VERSION,
     '@microservice-stack/module-typeorm-migrations': MICROSERVICE_STACK_VERSION,
     '@nestjs/typeorm': NESTJS_TYPEORM_VERSION,
     'class-validator': CLASS_VALIDATOR_VERSION,
     'class-transformer': CLASS_TRANSFORMER_VERSION,
     'typeorm': TYPEORM_VERSION,
+    'pg': PG_VERSION,
   };
 
   return addDependenciesToPackageJson(tree, dependencies, devDependencies);

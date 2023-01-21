@@ -3,7 +3,7 @@ import { startService } from '@microservice-stack/nest-application';
 import { SERVICE_NAME } from '@<%= organisationName %>/api/<%= applicationName %>/constants';
 import { Logger } from '@nestjs/common';
 <% if(includeDatabase) { %>
-import { generateMigrations } from '@microservice-stack/module-typeorm-migrations';
+import { generateMigration } from '@microservice-stack/module-typeorm-migrations';
 <% } %>
 
 async function bootstrap(): Promise<void> {
