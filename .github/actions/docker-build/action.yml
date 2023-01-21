@@ -1,0 +1,50 @@
+name: Microservice-stack docker build
+description: Build and publish docker image
+
+inputs:
+  projectName:
+    description: 'Name of the buildable project'
+    required: true
+  aws-access-key-id:
+    description: 'AWS access key id'
+    required: true
+  aws-secret-access-key:
+    description: 'AWS secret access key'
+    required: true
+  aws-region:
+    description: 'AWS region'
+    required: true
+  ecr-repository:
+    description: 'ECR repository name'
+    required: true
+  image-tag:
+    description: 'Image tag name'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Build app
+      shell: bash
+      run: npx nx run ${{ inputs.projectName }}:build
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ inputs.aws-access-key-id }}
+        aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
+        aws-region: ${{ inputs.aws-region }}
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+    - name: Build
+      uses: docker/build-push-action@v2
+      with:
+        context: ./
+        push: true
+        file: ./apps/api/${{ inputs.projectName }}/Dockerfile.ci
+        cache-from: type=gha,scope=${{ github.sha }}
+        build-args: BASE_IMAGE=${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}:prebuild-${{ github.sha }}
+        cache-to: type=gha,scope=${{ github.sha }}
+        tags: ${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}:${{ inputs.projectName }}-${{ inputs.image-tag }}
