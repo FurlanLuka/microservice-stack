@@ -8,8 +8,8 @@
  */
 
 import { readCachedProjectGraph } from '@nrwl/devkit';
-import { execSync } from 'child_process';
-import { readFileSync, writeFileSync } from 'fs';
+import { exec, execSync } from 'child_process';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
 import chalk from 'chalk';
 
 function invariant(condition, message) {
@@ -43,13 +43,39 @@ invariant(
   outputPath,
   `Could not find "build.options.outputPath" of project "${name}". Is project.json configured  correctly?`
 );
-
 process.chdir(outputPath);
 
 // Updating the version in "package.json" before publishing
 try {
+  const mainPackageJson = JSON.parse(
+    readFileSync('../../../package.json').toString()
+  );
+
+  const mainDependencies = {
+    ...mainPackageJson.dependencies,
+    ...mainPackageJson.devDependencies,
+  };
+
   const json = JSON.parse(readFileSync(`package.json`).toString());
+
   json.version = version;
+
+  if (json.dependencies) {
+    Object.keys(json.dependencies).forEach((dep) => {
+      if (mainDependencies[dep]) {
+        json.dependencies[dep] = mainDependencies[dep];
+      }
+    });
+  }
+
+  if (json.devDependencies) {
+    Object.keys(json.devDependencies).forEach((dep) => {
+      if (mainDependencies[dep]) {
+        json.devDependencies[dep] = mainDependencies[dep];
+      }
+    });
+  }
+
   writeFileSync(`package.json`, JSON.stringify(json, null, 2));
 } catch (e) {
   console.error(
