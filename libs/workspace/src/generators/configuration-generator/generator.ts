@@ -12,6 +12,7 @@ import {
   TYPEORM_VERSION,
 } from '../../utils/package-versions';
 import { createDeploymentFiles } from './lib/create-deployment-files';
+import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 
 const CONFIGURATION_FILE_NAME = 'microservice-stack.json';
 
@@ -26,8 +27,8 @@ function addDependencies(tree: Tree): GeneratorCallback {
     '@nestjs/typeorm': NESTJS_TYPEORM_VERSION,
     'class-validator': CLASS_VALIDATOR_VERSION,
     'class-transformer': CLASS_TRANSFORMER_VERSION,
-    'typeorm': TYPEORM_VERSION,
-    'pg': PG_VERSION,
+    typeorm: TYPEORM_VERSION,
+    pg: PG_VERSION,
   };
 
   return addDependenciesToPackageJson(tree, dependencies, devDependencies);
@@ -40,6 +41,9 @@ export default function configurationGenerator(tree: Tree) {
 
   tree.write(CONFIGURATION_FILE_NAME, JSON.stringify({}));
 
-  addDependencies(tree);
+  const addDependenciesTask = addDependencies(tree);
+
   createDeploymentFiles(tree);
+
+  return runTasksInSerial(addDependenciesTask);
 }

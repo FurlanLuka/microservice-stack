@@ -1,4 +1,9 @@
-import { getWorkspaceLayout, joinPathFragments, Tree } from '@nrwl/devkit';
+import {
+  GeneratorCallback,
+  getWorkspaceLayout,
+  joinPathFragments,
+  Tree,
+} from '@nrwl/devkit';
 import { ApplicationGeneratorSchema } from './schema';
 import { applicationGenerator as nestApplicationGenerator } from '@nrwl/nest';
 import { Linter } from '@nrwl/linter';
@@ -8,14 +13,15 @@ import { libraryGenerator } from '../library-generator/generator';
 import { createConstantsLibraryFiles } from './lib/create-constants-library-files';
 import { createDtoLibraryFiles } from './lib/create-dto-library-files';
 import { addMigrationGenerationTarget } from './lib/add-migration-generation-target';
+import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 
 export default async function applicationGenerator(
   tree: Tree,
   { applicationName, includeQueue, includeDatabase }: ApplicationGeneratorSchema
-): Promise<void> {
-  const workspace = getWorkspaceLayout(tree)
+): Promise<GeneratorCallback> {
+  const workspace = getWorkspaceLayout(tree);
 
-  await nestApplicationGenerator(tree, {
+  const nestApplicationGeneratorTask = await nestApplicationGenerator(tree, {
     name: applicationName,
     standaloneConfig: true,
     directory: `api`,
@@ -42,7 +48,7 @@ export default async function applicationGenerator(
     `api/${applicationName}`
   );
 
-  await libraryGenerator(tree, {
+  const constantsLibraryGeneratorTask = await libraryGenerator(tree, {
     libraryName: 'constants',
     projectName: applicationName,
     libraryType: 'API',
@@ -56,7 +62,7 @@ export default async function applicationGenerator(
     applicationName,
   });
 
-  await libraryGenerator(tree, {
+  const dtoLibraryGeneratortask = await libraryGenerator(tree, {
     libraryName: 'data-transfer-objects',
     projectName: applicationName,
     libraryType: 'API',
@@ -67,4 +73,10 @@ export default async function applicationGenerator(
   createDtoLibraryFiles(tree, `${libraryRoot}/data-transfer-objects`);
 
   addMigrationGenerationTarget(tree, `api-${applicationName}`);
+
+  return runTasksInSerial(
+    nestApplicationGeneratorTask,
+    constantsLibraryGeneratorTask,
+    dtoLibraryGeneratortask
+  );
 }

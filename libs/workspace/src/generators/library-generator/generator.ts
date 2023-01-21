@@ -1,14 +1,20 @@
-import { getWorkspaceLayout, joinPathFragments, Tree } from '@nrwl/devkit';
+import {
+  GeneratorCallback,
+  getWorkspaceLayout,
+  joinPathFragments,
+  Tree,
+} from '@nrwl/devkit';
 import { LibraryGeneratorSchema } from './schema';
 import { libraryGenerator as nestLibraryGenerator } from '@nrwl/nest';
 import { Linter } from '@nrwl/linter';
 import { deleteFiles } from '../../utils/delete-files';
 import { createFiles } from './lib/create-files';
+import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 
 export async function libraryGenerator(
   tree: Tree,
   { libraryName, projectName, libraryType }: LibraryGeneratorSchema
-): Promise<void> {
+): Promise<GeneratorCallback> {
   const workspace = getWorkspaceLayout(tree);
 
   const tags: string[] = [];
@@ -19,7 +25,7 @@ export async function libraryGenerator(
     tags.push(`scope:api:lib:util:${libraryName}`, `scope:api:lib:util`);
   }
 
-  await nestLibraryGenerator(tree, {
+  const nestLibraryGeneratorTask = await nestLibraryGenerator(tree, {
     name: libraryName,
     standaloneConfig: true,
     buildable: false,
@@ -39,4 +45,6 @@ export async function libraryGenerator(
 
   deleteFiles(tree, `${libraryRoot}/src/lib`);
   createFiles(tree, libraryRoot, libraryName);
+
+  return runTasksInSerial(nestLibraryGeneratorTask);
 }

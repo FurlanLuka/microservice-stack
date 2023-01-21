@@ -12,6 +12,7 @@
     "@nrwl/node": "15.4.5",
     "@nrwl/devkit": "15.4.5",
     "@nrwl/js": "15.4.5",
-    "@nrwl/nest": "15.4.5"
+    "@nrwl/nest": "15.4.5",
+    "@nrwl/workspace": "15.4.5"
   }
 }
