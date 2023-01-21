@@ -1,0 +1,11 @@
+{
+  "name": "@microservice-stack/nest-health",
+  "version": "0.0.5",
+  "type": "commonjs",
+  "dependencies": {
+    "@nestjs/common": "^9.2.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@microservice-stack/nest-rabbitmq",
+  "version": "0.0.5",
+  "type": "commonjs",
+  "dependencies": {
+    "@golevelup/nestjs-rabbitmq": "^3.4.0",
+    "@nestjs/common": "^9.2.1",
+    "@nestjs/core": "^9.2.1",
+    "uuid": "9.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

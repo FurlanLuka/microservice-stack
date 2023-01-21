@@ -1,0 +1,12 @@
+{
+  "name": "@microservice-stack/nest-config",
+  "version": "0.0.5",
+  "type": "commonjs",
+  "dependencies": {
+    "@nestjs/common": "^9.2.1",
+    "@nestjs/config": "^2.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

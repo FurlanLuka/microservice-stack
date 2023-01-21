@@ -1,0 +1,16 @@
+{
+  "name": "@microservice-stack/nest-typeorm-migrations",
+  "version": "0.0.5",
+  "type": "commonjs",
+  "dependencies": {
+    "@nestjs/common": "^9.2.1",
+    "@nestjs/core": "^9.2.1",
+    "typeorm": "^0.3.11"
+  },
+  "devDependencies": {
+    "@sqltools/formatter": "^1.2.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
