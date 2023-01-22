@@ -14,7 +14,6 @@ import { createConstantsLibraryFiles } from './lib/create-constants-library-file
 import { createDtoLibraryFiles } from './lib/create-dto-library-files';
 import { addMigrationGenerationTarget } from './lib/add-migration-generation-target';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
-import { addDeploymentTarget } from './lib/add-deployment-target';
 
 export default async function applicationGenerator(
   tree: Tree,
@@ -74,7 +73,6 @@ export default async function applicationGenerator(
   createDtoLibraryFiles(tree, `${libraryRoot}/data-transfer-objects`);
 
   addMigrationGenerationTarget(tree, `api-${applicationName}`);
-  addDeploymentTarget(tree, `api-${applicationName}`);
 
   return runTasksInSerial(
     nestApplicationGeneratorTask,

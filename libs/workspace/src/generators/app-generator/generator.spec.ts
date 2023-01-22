@@ -84,7 +84,5 @@ describe('Application generate generator', () => {
     );
 
     expect(projectConfiguration.targets['generate-migrations']).toBeDefined();
-    expect(projectConfiguration.targets['docker-build']).toBeDefined();
-    expect(projectConfiguration.targets['helm-deploy']).toBeDefined();
   });
 });
