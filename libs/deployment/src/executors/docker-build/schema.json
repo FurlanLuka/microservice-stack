@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "outputCapture": "direct-nodejs",
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Docker build executor",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "ecrRegistry": {
+      "type": "string",
+      "description": "ECR Registry url"
+    },
+    "ecrRepository": {
+      "type": "string",
+      "description": "ECR Repository name"
+    },
+    "imageTag": {
+      "type": "string",
+      "description": "Tag name for the image"
+    }
+  },
+  "required": ["ecrRegistry", "ecrRepository", "imageTag"]
+}
