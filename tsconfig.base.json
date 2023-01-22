@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@microservice-stack/deployment": ["libs/deployment/src/index.ts"],
       "@microservice-stack/local-deployment": [
         "libs/local-deployment/src/index.ts"
       ],
@@ -34,8 +33,8 @@
       "@microservice-stack/nest-application": [
         "libs/nest-application/src/index.ts"
       ],
-      "@microservice-stack/npx-build": ["libs/npx-build/src/index.ts"],
-      "@microservice-stack/workspace": ["libs/workspace/src/index.ts"]
+      "@microservice-stack/workspace": ["libs/workspace/src/index.ts"],
+      "@microservice-stack/npx-build": ["libs/npx-build/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
