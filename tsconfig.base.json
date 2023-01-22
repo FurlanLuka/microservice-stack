@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@microservice-stack/deployment": ["libs/deployment/src/index.ts"],
       "@microservice-stack/local-deployment": [
         "libs/local-deployment/src/index.ts"
       ],
