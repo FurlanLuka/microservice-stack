@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "executors": {
+    "docker-build": {
+      "implementation": "./src/executors/docker-build/executor",
+      "schema": "./src/executors/docker-build/schema.json",
+      "description": "docker build executor"
+    },
+    "helm-deploy": {
+      "implementation": "./src/executors/helm-deploy/executor",
+      "schema": "./src/executors/helm-deploy/schema.json",
+      "description": "deploy executor"
+    }
+  }
+}
