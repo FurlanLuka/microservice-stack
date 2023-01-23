@@ -18,17 +18,17 @@
       "@microservice-stack/local-deployment": [
         "libs/local-deployment/src/index.ts"
       ],
-      "@microservice-stack/module-config": [
-        "libs/nest-modules/config/src/index.ts"
+      "@microservice-stack/nest-config": [
+        "libs/nest-config/src/index.ts"
       ],
-      "@microservice-stack/module-health": [
-        "libs/nest-modules/health/src/index.ts"
+      "@microservice-stack/nest-health": [
+        "libs/nest-health/src/index.ts"
       ],
-      "@microservice-stack/module-rabbitmq": [
-        "libs/nest-modules/rabbitmq/src/index.ts"
+      "@microservice-stack/nest-rabbitmq": [
+        "libs/nest-rabbitmq/src/index.ts"
       ],
-      "@microservice-stack/module-typeorm-migrations": [
-        "libs/nest-modules/typeorm-migrations/src/index.ts"
+      "@microservice-stack/nest-typeorm-migrations": [
+        "libs/nest-typeorm-migrations/src/index.ts"
       ],
       "@microservice-stack/nest-application": [
         "libs/nest-application/src/index.ts"

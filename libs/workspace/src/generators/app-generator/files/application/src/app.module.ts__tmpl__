@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { HealthModule } from '@microservice-stack/module-health';
-import { ConfigModule, ConfigService } from '@microservice-stack/module-config';
+import { HealthModule } from '@microservice-stack/nest-health';
+import { ConfigModule, ConfigService } from '@microservice-stack/nest-config';
 import { ConfigVariables } from '@<%= organisationName %>/api/<%= applicationName %>/constants';
 <% if(includeDatabase) { %>import { TypeOrmModule } from '@nestjs/typeorm';
 import { migrations } from './migrations';<% } %><% if(includeQueue) { %>
-import { RabbitmqModule } from '@microservice-stack/module-rabbitmq';<% } %>
+import { RabbitmqModule } from '@microservice-stack/nest-rabbitmq';<% } %>
 
 @Module({
   imports: [
