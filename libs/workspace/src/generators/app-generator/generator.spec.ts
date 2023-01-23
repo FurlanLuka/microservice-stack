@@ -57,6 +57,18 @@ describe('Application generate generator', () => {
     ).toBeTruthy();
 
     expect(
+      tree.exists(`apps/api/${defaultSchema.applicationName}/Dockerfile.ci`)
+    ).toBeTruthy();
+
+    expect(
+      tree.exists(`apps/api/${defaultSchema.applicationName}/deployment-values.yaml`)
+    ).toBeTruthy();
+
+    expect(
+      tree.exists(`apps/api/${defaultSchema.applicationName}/Dockerfile.ci`)
+    ).toBeTruthy();
+
+    expect(
       tree.exists(`apps/api/${defaultSchema.applicationName}/.env`)
     ).toBeTruthy();
 
