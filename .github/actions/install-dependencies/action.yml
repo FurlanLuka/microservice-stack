@@ -1,0 +1,15 @@
+name: microservice-stack-install-dependencies
+description: Install node modules or pull them from cache
+
+runs:
+  using: composite
+  steps:
+    - name: Cache dependencies
+      id: cache
+      uses: actions/cache@v2
+      with:
+        path: ./node_modules
+        key: ${{ inputs.environment }}-dependencies-${{ hashFiles('package-lock.json') }}
+    - name: Install dependencies
+      shell: bash
+      run: npm ci --production

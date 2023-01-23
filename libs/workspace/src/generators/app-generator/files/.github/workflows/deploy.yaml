@@ -1,0 +1,31 @@
+name: Check
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  extract_metadata:
+    runs-on: ubuntu-latest
+    outputs:
+      imageTag: ${{ steps.extract.outputs.IMAGE_TAG }}
+    steps:
+      - id: extract
+        run: |
+          export TAG=${GITHUB_REF#refs/tags/}
+          echo "IMAGE_TAG=${TAG#v}" >> $GITHUB_OUTPUT
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: nrwl/nx-set-shas@v3
+        with:
+          main-branch-name: main~1
+      - run: npm ci
+      - run: npx nx workspace-lint
+      - run: npx nx affected --target=lint --parallel=3
+      - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
+      - run: npx nx affected --target=build --parallel=3

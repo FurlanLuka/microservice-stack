@@ -1,4 +1,4 @@
-name: Microservice-stack docker image prebuild
+name: microservice-stack-prebuild-docker
 description: Prebuild docker image and cache layers
 
 inputs:

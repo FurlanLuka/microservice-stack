@@ -1,4 +1,4 @@
-name: Microservice-stack API deploy
+name: microservice-stack-deploy-api
 description: Build and publish docker image
 
 inputs:

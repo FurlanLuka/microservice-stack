@@ -1,4 +1,4 @@
-name: Microservice-stack docker build
+name: microservice-stack-build-docker
 description: Build and publish docker image
 
 inputs:
