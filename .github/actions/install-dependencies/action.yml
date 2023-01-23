@@ -12,4 +12,4 @@ runs:
         key: ${{ inputs.environment }}-dependencies-${{ hashFiles('package-lock.json') }}
     - name: Install dependencies
       shell: bash
-      run: npm ci --production
+      run: npm ci

@@ -23,9 +23,6 @@ inputs:
   kube-config-data:
     description: 'Kube config data'
     required: true
-  environment:
-    description: 'Environment'
-    required: true
 
 runs:
   using: composite

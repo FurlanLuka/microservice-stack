@@ -5,6 +5,9 @@ on:
     types:
       - 'ready_for_review'
 
+env:
+  BASE_BRANCH_NAME: main
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -13,8 +16,11 @@ jobs:
         with:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v3
-      - run: npm ci
+        with:
+          main-branch-name: ${{ env.BASE_BRANCH_NAME }}
+      - uses: FurlanLuka/microservice-stack/.github/install-dependencies@main
+        name: Install dependencies
       - run: npx nx workspace-lint
-      - run: npx nx affected --target=lint --parallel=3
-      - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
-      - run: npx nx affected --target=build --parallel=3
+      - run: npx nx affected --target=lint --parallel=3 --base=origin/${{ env.BASE_BRANCH_NAME }}
+      - run: npx nx affected --target=test --parallel=3 --ci --code-coverage --base=origin/${{ env.BASE_BRANCH_NAME }}
+      - run: npx nx affected --target=build --parallel=3 --base=origin/${{ env.BASE_BRANCH_NAME }}

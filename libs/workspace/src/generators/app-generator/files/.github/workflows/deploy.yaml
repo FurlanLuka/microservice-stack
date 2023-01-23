@@ -5,6 +5,9 @@ on:
     tags:
       - v*
 
+env:
+  BASE_BRANCH_NAME: main~1
+
 jobs:
   extract_metadata:
     runs-on: ubuntu-latest
@@ -15,7 +18,7 @@ jobs:
         run: |
           export TAG=${GITHUB_REF#refs/tags/}
           echo "IMAGE_TAG=${TAG#v}" >> $GITHUB_OUTPUT
-  check:
+  setup_and_check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -23,9 +26,78 @@ jobs:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v3
         with:
-          main-branch-name: main~1
-      - run: npm ci
+          main-branch-name: ${{ env.BASE_BRANCH_NAME }}
+      - uses: FurlanLuka/microservice-stack/.github/actions/install-dependencies@main
+        name: Install dependencies
       - run: npx nx workspace-lint
-      - run: npx nx affected --target=lint --parallel=3
-      - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
-      - run: npx nx affected --target=build --parallel=3
+      - run: npx nx affected --target=lint --parallel=3 --base=origin/${{ env.BASE_BRANCH_NAME }}
+      - run: npx nx affected --target=test --parallel=3 --ci --code-coverage --base=origin/${{ env.BASE_BRANCH_NAME }}
+      - run: npx nx affected --target=build --parallel=3 --base=origin/${{ env.BASE_BRANCH_NAME }}
+      - uses: FurlanLuka/microservice-stack/.github/actions/affected-projects@main
+        name: Extract affected projects
+        with:
+          base: origin/${{ env.BASE_BRANCH_NAME }}
+  prebuild:
+    runs-on: ubuntu-latest
+    needs: [setup_and_check]
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+      - uses: FurlanLuka/microservice-stack/.github/actions/install-dependencies@main
+        name: Install dependencies
+      - uses: FurlanLuka/microservice-stack/.github/actions/docker-prebuild@main
+        name: Prebuild docker image and cache layers
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          ecr-repository: ${{ secrets.AWS_ECR_REPOSITORY }}
+  build_and_publish:
+    if: ${{ needs.setup_and_check.outputs.affectedProjects != '[]' && needs.setup_and_check.outputs.affectedProjects != '' }}
+    needs: [extract_metadata, setup_and_check, prebuild]
+    runs-on: ubuntu-latest
+    name: Build ${{ matrix.project }}
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ fromJSON(needs.setup_and_check.outputs.affectedProjects) }}
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+      - uses: FurlanLuka/microservice-stack/.github/actions/install-dependencies@main
+        name: Install dependencies
+      - uses: FurlanLuka/microservice-stack/.github/actions/docker-build@main
+        name: Build and publish docker image
+        with:
+          projectName: ${{ matrix.project }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          ecr-repository: ${{ secrets.AWS_ECR_REPOSITORY }}
+          image-tag: ${{ needs.extract_metadata.outputs.imageTag }}
+          app-path: 'api'
+  deploy:
+    if: ${{ needs.setup_and_check.outputs.affectedProjects != '[]' && needs.setup_and_check.outputs.affectedProjects != '' }}
+    name: Deploy ${{ matrix.project }}
+    needs: [build_and_publish, setup_and_check]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ fromJSON(needs.setup_and_check.outputs.affectedProjects) }}
+    steps:
+      - name: Poor mans manual deploy
+        if: ${{ github.run_attempt== 1}}
+        run: exit 1
+      - uses: actions/checkout@v2
+        name: Checkout
+      - uses: FurlanLuka/microservice-stack/.github/actions/deploy-api@main
+        name: Deploy API
+        with:
+          projectName: ${{ matrix.project }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          ecr-repository: ${{ secrets.AWS_ECR_REPOSITORY }}
+          kube-config-data: ${{ secrets.KUBE_CONFIG_DATA }}
+          image-tag: ${{ needs.setup_and_check.outputs.imageTag }}

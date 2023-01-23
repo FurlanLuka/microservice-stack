@@ -1,0 +1,17 @@
+name: microservice-stack-affected-projects
+description: 'Nx get affected project names'
+
+inputs:
+  base:
+    description: 'Base branch for affected:apps command'
+    required: false
+
+outputs:
+  isAffected:
+    description: 'Indicates if any project is affected'
+  affectedProjects:
+    description: Affected projects matrix
+
+runs:
+  using: 'node16'
+  main: 'index.js'
