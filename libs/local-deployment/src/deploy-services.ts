@@ -33,16 +33,28 @@ async function buildBaseImage(debugEnabled: boolean) {
     try {
       await execAsync('eval $(minikube docker-env) && docker image inspect service-prebuild:latest');
     } catch (error) {
+      if (debugEnabled) {
+        console.error('Debug: Image does not exist');
+      }
       imageExists = false;
     }
 
     const configExists = fs.existsSync('.localDeployment');
     const packageModifiedDate = fs.statSync('package.json').mtimeMs;
 
+    if (debugEnabled) {
+      console.error(`Debug: Config exists: ${configExists}`);
+      console.error(`Debug: Package modified date: ${packageModifiedDate}`);
+    }
+
     let shouldBuildBaseImage = true;
 
     if (configExists && imageExists) {
       const cachedModifiedDate = fs.readFileSync('.localDeployment', 'utf-8');
+
+      if (debugEnabled) {
+        console.error(`Debug: Cached modified date: ${cachedModifiedDate}`);
+      }
 
       if (cachedModifiedDate !== `${packageModifiedDate}`) {
         shouldBuildBaseImage = true;
@@ -59,6 +71,8 @@ async function buildBaseImage(debugEnabled: boolean) {
       fs.writeFileSync('.localDeployment', `${packageModifiedDate}`);
 
       console.log(`Base image build successful ✅`);
+    } else {
+      console.log(`Skipping building base image...`);
     }
   } catch (error) {
     if (debugEnabled) {
