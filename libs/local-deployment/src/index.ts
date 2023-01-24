@@ -29,7 +29,7 @@ program
   .alias('u')
   .requiredOption('-s, --service <service>', 'service that should be upgraded')
   .option('-d, --debug')
-  .action(async ({ service, debug = true }) => {
+  .action(async ({ service, debug = false }) => {
     console.log(
       chalk.bold('Starting local microservice deployment...')
     );
