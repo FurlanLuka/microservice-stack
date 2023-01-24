@@ -3,8 +3,9 @@ import { HealthModule } from '@microservice-stack/nest-health';
 import { ConfigModule, ConfigService } from '@microservice-stack/nest-config';
 import { ConfigVariables } from '@<%= organisationName %>/api/<%= applicationName %>/constants';
 <% if(includeDatabase) { %>import { TypeOrmModule } from '@nestjs/typeorm';
-import { migrations } from './migrations';<% } %><% if(includeQueue) { %>
-import { RabbitmqModule } from '@microservice-stack/nest-rabbitmq';<% } %>
+import { migrations } from './migrations';<% } if(includeQueue) { %>
+import { RabbitmqModule } from '@microservice-stack/nest-rabbitmq';<% } if(includeRedis) { %>
+import { RedisModule } from '@microservice-stack/nest-redis';<% } %>
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { RabbitmqModule } from '@microservice-stack/nest-rabbitmq';<% } %>
         ConfigVariables.TYPEORM_HOST,
         ConfigVariables.TYPEORM_PASSWORD,
         ConfigVariables.TYPEORM_PORT,
-        ConfigVariables.TYPEORM_USERNAME,<% } %>
+        ConfigVariables.TYPEORM_USERNAME,<% } if (includeRedis) { %>
+        ConfigVariables.REDIS_URL,<% } %>
       ],
     }),<% if(includeDatabase) { %>
     TypeOrmModule.forRootAsync({
@@ -41,6 +43,16 @@ import { RabbitmqModule } from '@microservice-stack/nest-rabbitmq';<% } %>
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         uri: configService.get(ConfigVariables.QUEUE_URL),
+      }),
+    }),<% } if (includeRedis) { %>
+    RedisModule.register({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        connections: [{
+          connectionName: 'default',
+          connectionUrl: configService.get(ConfigVariables.REDIS_URL),
+        }]
       }),
     }),<% } %>
     HealthModule,

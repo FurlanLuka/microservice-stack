@@ -3,6 +3,7 @@ import { generateFiles, joinPathFragments, Tree } from '@nrwl/devkit';
 interface Options {
   includeQueue: boolean;
   includeDatabase: boolean;
+  includeRedis: boolean;
   organisationName: string;
   applicationName: string;
 }

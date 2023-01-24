@@ -17,7 +17,12 @@ import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-ser
 
 export default async function applicationGenerator(
   tree: Tree,
-  { applicationName, includeQueue, includeDatabase }: ApplicationGeneratorSchema
+  {
+    applicationName,
+    includeQueue,
+    includeDatabase,
+    includeRedis,
+  }: ApplicationGeneratorSchema
 ): Promise<GeneratorCallback> {
   const workspace = getWorkspaceLayout(tree);
 
@@ -39,6 +44,7 @@ export default async function applicationGenerator(
   createApplicationFiles(tree, applicationRoot, {
     includeQueue: includeQueue ?? false,
     includeDatabase: includeDatabase ?? false,
+    includeRedis: includeRedis ?? false,
     applicationName,
     organisationName: workspace.npmScope,
   });
@@ -59,6 +65,7 @@ export default async function applicationGenerator(
   createConstantsLibraryFiles(tree, `${libraryRoot}/constants`, {
     includeQueue: includeQueue ?? false,
     includeDatabase: includeDatabase ?? false,
+    includeRedis: includeRedis ?? false,
     applicationName,
   });
 
