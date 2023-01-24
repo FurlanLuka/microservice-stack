@@ -23,6 +23,7 @@ function addDependencies(tree: Tree): GeneratorCallback {
     '@microservice-stack/nest-health': MICROSERVICE_STACK_VERSION,
     '@microservice-stack/nest-config': MICROSERVICE_STACK_VERSION,
     '@microservice-stack/nest-rabbitmq': MICROSERVICE_STACK_VERSION,
+    '@microservice-stack/nest-redis': MICROSERVICE_STACK_VERSION,
     '@microservice-stack/nest-typeorm-migrations': MICROSERVICE_STACK_VERSION,
     '@nestjs/typeorm': NESTJS_TYPEORM_VERSION,
     'class-validator': CLASS_VALIDATOR_VERSION,

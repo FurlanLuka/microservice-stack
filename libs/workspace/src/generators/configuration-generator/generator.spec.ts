@@ -43,6 +43,9 @@ describe('Configuration generator', () => {
       packageJson.dependencies['@microservice-stack/nest-rabbitmq']
     ).toStrictEqual(MICROSERVICE_STACK_VERSION);
     expect(
+      packageJson.dependencies['@microservice-stack/nest-redis']
+    ).toStrictEqual(MICROSERVICE_STACK_VERSION);
+    expect(
       packageJson.dependencies['@microservice-stack/nest-typeorm-migrations']
     ).toStrictEqual(MICROSERVICE_STACK_VERSION);
     expect(
