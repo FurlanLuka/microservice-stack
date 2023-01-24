@@ -18,23 +18,18 @@
       "@microservice-stack/local-deployment": [
         "libs/local-deployment/src/index.ts"
       ],
-      "@microservice-stack/nest-config": [
-        "libs/nest-config/src/index.ts"
-      ],
-      "@microservice-stack/nest-health": [
-        "libs/nest-health/src/index.ts"
-      ],
-      "@microservice-stack/nest-rabbitmq": [
-        "libs/nest-rabbitmq/src/index.ts"
-      ],
-      "@microservice-stack/nest-typeorm-migrations": [
-        "libs/nest-typeorm-migrations/src/index.ts"
-      ],
       "@microservice-stack/nest-application": [
         "libs/nest-application/src/index.ts"
       ],
-      "@microservice-stack/workspace": ["libs/workspace/src/index.ts"],
-      "@microservice-stack/npx-build": ["libs/npx-build/src/index.ts"]
+      "@microservice-stack/nest-config": ["libs/nest-config/src/index.ts"],
+      "@microservice-stack/nest-health": ["libs/nest-health/src/index.ts"],
+      "@microservice-stack/nest-rabbitmq": ["libs/nest-rabbitmq/src/index.ts"],
+      "@microservice-stack/nest-redis": ["libs/nest-redis/src/index.ts"],
+      "@microservice-stack/nest-typeorm-migrations": [
+        "libs/nest-typeorm-migrations/src/index.ts"
+      ],
+      "@microservice-stack/npx-build": ["libs/npx-build/src/index.ts"],
+      "@microservice-stack/workspace": ["libs/workspace/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
