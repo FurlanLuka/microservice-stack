@@ -28,12 +28,20 @@ async function getServiceList(debugEnabled: boolean): Promise<string[]> {
 
 async function buildBaseImage(debugEnabled: boolean) {
   try {
+    let imageExists = true;
+
+    try {
+      await execAsync('eval $(minikube docker-env) && docker image inspect service-prebuild:latest');
+    } catch (error) {
+      imageExists = false;
+    }
+
     const configExists = fs.existsSync('.localDeployment');
     const packageModifiedDate = fs.statSync('package.json').mtimeMs;
 
     let shouldBuildBaseImage = true;
 
-    if (configExists) {
+    if (configExists && imageExists) {
       const cachedModifiedDate = fs.readFileSync('.localDeployment', 'utf-8');
 
       if (cachedModifiedDate !== `${packageModifiedDate}`) {
