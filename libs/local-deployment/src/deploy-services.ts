@@ -56,8 +56,8 @@ async function buildBaseImage(debugEnabled: boolean) {
         console.error(`Debug: Cached modified date: ${cachedModifiedDate}`);
       }
 
-      if (cachedModifiedDate !== `${packageModifiedDate}`) {
-        shouldBuildBaseImage = true;
+      if (cachedModifiedDate === packageModifiedDate.toString()) {
+        shouldBuildBaseImage = false;
       }
     }
 
