@@ -13,7 +13,7 @@ async function bootstrap(): Promise<void> {
   );
 
   if (shouldGenerateMigrations) {
-    await generateMigrations(SERVICE_NAME, AppModule);
+    await generateMigration(SERVICE_NAME, AppModule);
   } else {
     await startService(SERVICE_NAME, AppModule);
   }

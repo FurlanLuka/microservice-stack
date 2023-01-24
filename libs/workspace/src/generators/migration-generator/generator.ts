@@ -52,7 +52,7 @@ export default async function (
   const execute = promisify(exec);
 
   const { stdout } = await execute(
-    `npx nx run ${normalizedOptions.applicationName}:generate-migration`,
+    `npx nx run ${normalizedOptions.applicationName}:generate-migrations`,
     { maxBuffer: 1024 * 5000 }
   );
 
