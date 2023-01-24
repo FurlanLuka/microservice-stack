@@ -44,6 +44,8 @@ describe('Application generate generator', () => {
       `scope:api:lib:${defaultSchema.applicationName}`,
     ]);
 
+    expect(tree.children('apps/api').length).toBe(1);
+
     expect(
       tree.exists(`apps/api/${defaultSchema.applicationName}/src/main.ts`)
     ).toBeTruthy();
