@@ -1,5 +1,6 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import * as fs from 'fs';
 
 const execAsync = promisify(exec);
 
@@ -27,13 +28,30 @@ async function getServiceList(debugEnabled: boolean): Promise<string[]> {
 
 async function buildBaseImage(debugEnabled: boolean) {
   try {
-    console.log(`Building base image...`);
+    const configExists = fs.existsSync('.localDeployment');
+    const packageModifiedDate = fs.statSync('package.json').mtimeMs;
 
-    await execAsync(
-      `eval $(minikube docker-env) && DOCKER_SCAN_SUGGEST=false docker build -f infrastructure/local/Dockerfile.prebuild -t service-prebuild:latest .`
-    );
+    let shouldBuildBaseImage = true;
 
-    console.log(`Base image build successful ✅`);
+    if (configExists) {
+      const cachedModifiedDate = fs.readFileSync('.localDeployment', 'utf-8');
+
+      if (cachedModifiedDate !== `${packageModifiedDate}`) {
+        shouldBuildBaseImage = true;
+      }
+    }
+
+    if (shouldBuildBaseImage) {
+      console.log(`Building base image...`);
+
+      await execAsync(
+        `eval $(minikube docker-env) && DOCKER_SCAN_SUGGEST=false docker build -f infrastructure/local/Dockerfile.prebuild -t service-prebuild:latest .`
+      );
+
+      fs.writeFileSync('.localDeployment', `${packageModifiedDate}`);
+
+      console.log(`Base image build successful ✅`);
+    }
   } catch (error) {
     if (debugEnabled) {
       console.error(JSON.stringify(error, null, 2));
@@ -87,7 +105,7 @@ async function deploy(services: string[], debugEnabled: boolean) {
 export async function deployServices(debugEnabled: boolean) {
   const services: string[] = await getServiceList(debugEnabled);
 
-  await buildBaseImage(debugEnabled)
+  await buildBaseImage(debugEnabled);
   await build(services, debugEnabled);
   await deploy(services, debugEnabled);
 }
@@ -99,7 +117,7 @@ export async function deployService(service: string, debugEnabled: boolean) {
     throw new Error('This service does not exist.');
   }
 
-  await buildBaseImage(debugEnabled)
+  await buildBaseImage(debugEnabled);
   await build([service], debugEnabled);
   await deploy([service], debugEnabled);
 }
