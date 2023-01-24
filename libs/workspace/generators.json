@@ -22,6 +22,11 @@
       "factory": "./src/generators/util-library-generator/generator",
       "schema": "./src/generators/util-library-generator/schema.json",
       "description": "Util library generator"
+    },
+    "migration-generator": {
+      "factory": "./src/generators/migration-generator/generator",
+      "schema": "./src/generators/migration-generator/schema.json",
+      "description": "Migration generator"
     }
   }
 }
