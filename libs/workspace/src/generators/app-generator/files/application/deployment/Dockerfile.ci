@@ -3,7 +3,7 @@ FROM ${BASE_IMAGE}
 
 WORKDIR /service
 
-COPY dist/apps/api/<%= applicationName %>/ /service
+COPY dist/apps/api/<%= applicationName %>/ /service/
 
 USER node
 
