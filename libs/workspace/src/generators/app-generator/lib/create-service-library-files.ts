@@ -15,6 +15,9 @@ export function createServiceLibraryFiles(
     tree,
     joinPathFragments(__dirname, '..', 'files/library-service'),
     joinPathFragments(libraryRoot, 'src'),
-    options,
+    {
+      tmpl: '',
+      ...options,
+    },
   );
 }
