@@ -5,7 +5,7 @@
   "title": "",
   "type": "object",
   "properties": {
-    "appName": {
+    "applicationName": {
       "description": "The application project to target",
       "type": "string",
       "$default": {
@@ -19,5 +19,5 @@
       "x-prompt": "What util name would you like to use?"
     }
   },
-  "required": ["appName", "libraryName"]
+  "required": ["applicationName", "libraryName"]
 }

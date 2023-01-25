@@ -6,7 +6,7 @@ import applicationGenerator from '../app-generator/generator';
 import { AppLibraryGeneratorSchema } from './schema';
 
 const defaultAppLibrarySchema: AppLibraryGeneratorSchema = {
-  appName: 'api-test',
+  applicationName: 'api-test',
   libraryName: 'lib',
 };
 
@@ -34,7 +34,7 @@ describe('Application library generator', () => {
 
     const config = readProjectConfiguration(
       tree,
-      `${defaultAppLibrarySchema.appName}-${defaultAppLibrarySchema.libraryName}`
+      `${defaultAppLibrarySchema.applicationName}-${defaultAppLibrarySchema.libraryName}`
     );
 
     expect(config).toBeDefined();

@@ -4,10 +4,10 @@ import { libraryGenerator } from '../library-generator/generator';
 
 export default async function utilLibraryGenerator(
   tree: Tree,
-  { utilName }: UtilLibraryGeneratorSchema
+  { libraryName }: UtilLibraryGeneratorSchema
 ): Promise<GeneratorCallback> {
   return libraryGenerator(tree, {
-    libraryName: utilName,
+    libraryName,
     libraryType: 'UTIL',
     projectName: 'utils',
   });

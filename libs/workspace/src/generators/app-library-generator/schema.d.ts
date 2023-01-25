@@ -1,4 +1,4 @@
 export interface AppLibraryGeneratorSchema {
-  appName: string;
+  applicationName: string;
   libraryName: string;
 }

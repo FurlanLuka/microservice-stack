@@ -1,3 +1,3 @@
 export interface UtilLibraryGeneratorSchema {
-  utilName: string;
+  libraryName: string;
 }

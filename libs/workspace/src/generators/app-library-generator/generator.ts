@@ -8,9 +8,9 @@ import { libraryGenerator } from '../library-generator/generator';
 
 export default async function appLibraryGenerator(
   tree: Tree,
-  { appName, libraryName }: AppLibraryGeneratorSchema
+  { applicationName, libraryName }: AppLibraryGeneratorSchema
 ): Promise<GeneratorCallback> {
-  const config = readProjectConfiguration(tree, appName);
+  const config = readProjectConfiguration(tree, applicationName);
 
   if (config.projectType !== 'application') {
     throw new Error('Selected application does not exist.');
@@ -19,6 +19,6 @@ export default async function appLibraryGenerator(
   return libraryGenerator(tree, {
     libraryName: libraryName,
     libraryType: 'API',
-    projectName: appName.replace('api-', ''),
+    projectName: applicationName.replace('api-', ''),
   });
 }

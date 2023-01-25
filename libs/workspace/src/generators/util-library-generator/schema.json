@@ -5,7 +5,7 @@
   "title": "",
   "type": "object",
   "properties": {
-    "utilName": {
+    "libraryName": {
       "type": "string",
       "description": "",
       "$default": {
@@ -15,5 +15,5 @@
       "x-prompt": "What util name would you like to use?"
     }
   },
-  "required": ["utilName"]
+  "required": ["libraryName"]
 }

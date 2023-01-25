@@ -5,7 +5,7 @@ import utilLibraryGenerator from './generator';
 import { UtilLibraryGeneratorSchema } from './schema';
 
 const defaultSchema: UtilLibraryGeneratorSchema = {
-  utilName: 'test'
+  libraryName: 'test'
 };
 
 describe('Util library generator', () => {
@@ -20,25 +20,25 @@ describe('Util library generator', () => {
 
     const config = readProjectConfiguration(
       tree,
-      `api-utils-${defaultSchema.utilName}`
+      `api-utils-${defaultSchema.libraryName}`
     );
 
     expect(config).toBeDefined();
 
     expect(config.tags).toStrictEqual([
-      `scope:api:lib:util:${defaultSchema.utilName}`,
+      `scope:api:lib:util:${defaultSchema.libraryName}`,
       `scope:api:lib:util`,
     ]);
 
     expect(
       tree.exists(
-        `libs/api/utils/${defaultSchema.utilName}/src/index.ts`
+        `libs/api/utils/${defaultSchema.libraryName}/src/index.ts`
       )
     ).toBeTruthy();
 
     expect(
       tree.children(
-        `libs/api/utils/${defaultSchema.utilName}/src`
+        `libs/api/utils/${defaultSchema.libraryName}/src`
       ).length
     ).toStrictEqual(1);
   });
