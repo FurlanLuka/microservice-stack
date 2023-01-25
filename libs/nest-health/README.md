@@ -1,11 +1,13 @@
-# nest-modules-health
+# Health
 
-This library was generated with [Nx](https://nx.dev).
+This library provides a module that adds a `/health` endpoint to your nest service. This endpoint can be used for Kubernetes health checks.
 
-## Building
+```typescript
+import { Module } from '@nestjs/common';
+import { HealthModule } from '@microservice-stack/nest-health';
 
-Run `nx build nest-modules-health` to build the library.
-
-## Running unit tests
-
-Run `nx test nest-modules-health` to execute the unit tests via [Jest](https://jestjs.io).
+@Module({
+  imports: [HealthModule],
+})
+export class AppModule {}
+```

@@ -1,11 +1,19 @@
-# nest-application
+# Application
 
-This library was generated with [Nx](https://nx.dev).
+This library streamlines the nest service start configuration by providing default nest configuration including&#x20;
 
-## Building
+* Fastify framework instead of Express because of its superior performance
+* Winston logger formatted to raw JSON, so your service logs can easily be connected to services such as Datadog
+* Enabled global Validation pipe for the use of class validator decorators
+* Enabled cors
 
-Run `nx build nest-application` to build the library.
+```typescript
+import { AppModule } from './app.module';
+import { startService } from '@microservice-stack/nest-application';
 
-## Running unit tests
+async function bootstrap(): Promise<void> {
+  await startService('Service Name', AppModule);
+}
 
-Run `nx test nest-application` to execute the unit tests via [Jest](https://jestjs.io).
+bootstrap();
+```
