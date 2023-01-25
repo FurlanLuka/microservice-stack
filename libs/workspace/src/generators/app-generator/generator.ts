@@ -26,8 +26,9 @@ export default async function applicationGenerator(
   }: ApplicationGeneratorSchema
 ): Promise<GeneratorCallback> {
   const workspace = getWorkspaceLayout(tree);
-  const capitalApplicationName =
-    applicationName.charAt(0).toUpperCase() + applicationName.slice(1);
+  const capitalApplicationName = (
+    applicationName.charAt(0).toUpperCase() + applicationName.slice(1)
+  ).replace('-', '');
 
   const nestApplicationGeneratorTask = await nestApplicationGenerator(tree, {
     name: applicationName,

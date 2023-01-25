@@ -68,7 +68,7 @@ async function buildBaseImage(debugEnabled: boolean) {
         `eval $(minikube docker-env) && DOCKER_SCAN_SUGGEST=false docker build -f infrastructure/local/Dockerfile.prebuild -t service-prebuild:latest .`
       );
 
-      fs.writeFileSync('.localDeployment', `${packageModifiedDate}`);
+      fs.writeFileSync('.localdeployment', `${packageModifiedDate}`);
 
       console.log(`Base image build successful ✅`);
     } else {
