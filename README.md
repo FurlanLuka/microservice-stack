@@ -1,94 +1,30 @@
+# Overview
+### [Read the documentation here](https://docs.microservice-stack.com)
 
+![](https://github.com/FurlanLuka/microservice-stack/actions/workflows/publish.yml/badge.svg) ![](https://github.com/FurlanLuka/microservice-stack/actions/workflows/check.yml/badge.svg)
 
-# MicroserviceStack
+The "Microservice Stack" was designed to streamline the development process for applications utilizing microservice architecture. It provides a comprehensive set of tools and resources that make it easier to build, test, deploy and manage microservices, allowing developers to focus on creating business logic rather than worrying about infrastructure and operational complexities. This simplification of the development process not only saves time and effort, but also makes it more accessible for developers of all skill levels to work with microservices.
 
-This project was generated using [Nx](https://nx.dev).
+## Motivation
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+Many developers are hesitant to adopt microservice architecture when initiating a project or startup, as it can present a significant number of complexities. As a result, they often opt for monolithic or serverless structures, despite the likelihood that they will eventually have to migrate to microservices as the project grows and scaling becomes a priority.
 
-🔎 **Smart, Fast and Extensible Build System**
+This project aims to assist developers in addressing the complexities associated with microservice architecture, including deployment, continuous integration and delivery, service configurations, and patterns. By providing solutions to these challenges, developers can confidently choose microservice architecture from the start and avoid the need for costly and time-consuming rewrites.
 
-## Adding capabilities to your workspace
+## The stack
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+The microservice stack is composed of&#x20;
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
-
-Below are our core plugins:
-
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
-
-There are also many [community plugins](https://nx.dev/community) you could add.
-
-## Generate an application
-
-Run `nx g @nrwl/react:app my-app` to generate an application.
-
-> You can use any of the plugins above to generate applications as well.
-
-When using Nx, you can create multiple applications and libraries in the same workspace.
-
-## Generate a library
-
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are shareable across libraries and applications. They can be imported from `@microservice-stack/mylib`.
-
-## Development server
-
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `nx e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+* NestJS ([https://nestjs.com/](https://nestjs.com/))&#x20;
+* NX Monorepo ([https://nx.dev/](https://nx.dev/))
+  * A build system that offers support for monorepo, allowing developers to manage all services within a single repository, streamlining code sharing, development workflow and deployment. With this build system, developers can create reusable libraries with ease, and utilize code generators to automatically generate boilerplate code and configurations, saving time and effort. The monorepo support also enables developers to easily manage dependencies, and maintain a consistent development workflow across all the services, making it easier to scale and maintain complex projects. Additionally, this build system gives more visibility and control over the entire codebase.
+* Docker ([https://www.docker.com/](https://www.docker.com/))
+* Kubernetes ([https://kubernetes.io/](https://kubernetes.io/))
+  * A container orchestration system for automating software deployment, scaling, and management. Used for hosting services, Redis and RabbitMQ.
+* Helm ([https://helm.sh/](https://helm.sh/))
+  * A tool that streamlines installing and managing Kubernetes applications. It will be used to install all Kubernetes applications as well as to set up automatic service deployment from Github.
+* PostgreSQL ([https://www.postgresql.org/](https://www.postgresql.org/))
+* RabbitMQ ([https://www.rabbitmq.com/](https://www.rabbitmq.com/))
+* Redis ([https://redis.io/](https://redis.io/))
+* AWS ([https://aws.amazon.com/](https://aws.amazon.com/))
+  * AWS will be used as a default cloud provider. When generating deployment configurations, a Terraform configuration will be generated, describing the AWS infrastructure.
