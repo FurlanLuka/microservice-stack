@@ -14,6 +14,7 @@ import { createConstantsLibraryFiles } from './lib/create-constants-library-file
 import { createDtoLibraryFiles } from './lib/create-dto-library-files';
 import { addMigrationGenerationTarget } from './lib/add-migration-generation-target';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+import { createServiceLibraryFiles } from './lib/create-service-library-files';
 
 export default async function applicationGenerator(
   tree: Tree,
@@ -25,6 +26,8 @@ export default async function applicationGenerator(
   }: ApplicationGeneratorSchema
 ): Promise<GeneratorCallback> {
   const workspace = getWorkspaceLayout(tree);
+  const capitalApplicationName =
+    applicationName.charAt(0).toUpperCase() + applicationName.slice(1);
 
   const nestApplicationGeneratorTask = await nestApplicationGenerator(tree, {
     name: applicationName,
@@ -47,6 +50,7 @@ export default async function applicationGenerator(
     includeRedis: includeRedis ?? false,
     applicationName,
     organisationName: workspace.npmScope,
+    capitalApplicationName,
   });
 
   const libraryRoot: string = joinPathFragments(
@@ -79,11 +83,26 @@ export default async function applicationGenerator(
 
   createDtoLibraryFiles(tree, `${libraryRoot}/data-transfer-objects`);
 
+  const serviceLibraryGeneratortask = await libraryGenerator(tree, {
+    libraryName: applicationName,
+    projectName: applicationName,
+    libraryType: 'API',
+  });
+
+  deleteFiles(tree, `${libraryRoot}/${applicationName}/src`);
+
+  createServiceLibraryFiles(tree, `${libraryRoot}/${applicationName}`, {
+    name: applicationName,
+    capitalName: capitalApplicationName,
+    organisationName: workspace.npmScope,
+  });
+
   addMigrationGenerationTarget(tree, `api-${applicationName}`);
 
   return runTasksInSerial(
     nestApplicationGeneratorTask,
     constantsLibraryGeneratorTask,
-    dtoLibraryGeneratortask
+    dtoLibraryGeneratortask,
+    serviceLibraryGeneratortask
   );
 }

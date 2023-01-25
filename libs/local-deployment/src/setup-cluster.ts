@@ -42,16 +42,3 @@ export async function setupCluster(debugEnabled: boolean) {
     throw new Error('Issue while setting up cluster, is your docker running?');
   }
 }
-
-async function cleanup(debugEnabled: boolean) {
-  try {
-    console.log('Cleaning up...');
-    await execAsync('eval $(minikube -u minikube docker-env)');
-    console.log('Cleaned up ✅');
-  } catch (error) {
-    if (debugEnabled) {
-      console.error(error);
-    }
-    throw new Error('Issue while setting up docker, is your docker running?');
-  }
-}

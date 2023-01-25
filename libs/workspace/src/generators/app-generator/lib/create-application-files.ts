@@ -6,6 +6,7 @@ interface Options {
   includeRedis: boolean;
   organisationName: string;
   applicationName: string;
+  capitalApplicationName: string;
 }
 
 export function createApplicationFiles(

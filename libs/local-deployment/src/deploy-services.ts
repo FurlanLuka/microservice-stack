@@ -39,7 +39,7 @@ async function buildBaseImage(debugEnabled: boolean) {
       imageExists = false;
     }
 
-    const configExists = fs.existsSync('.localDeployment');
+    const configExists = fs.existsSync('.localdeployment');
     const packageModifiedDate = fs.statSync('package.json').mtimeMs;
 
     if (debugEnabled) {
@@ -50,7 +50,7 @@ async function buildBaseImage(debugEnabled: boolean) {
     let shouldBuildBaseImage = true;
 
     if (configExists && imageExists) {
-      const cachedModifiedDate = fs.readFileSync('.localDeployment', 'utf-8');
+      const cachedModifiedDate = fs.readFileSync('.localdeployment', 'utf-8');
 
       if (debugEnabled) {
         console.error(`Debug: Cached modified date: ${cachedModifiedDate}`);

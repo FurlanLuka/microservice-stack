@@ -63,7 +63,9 @@ describe('Application generate generator', () => {
     ).toBeTruthy();
 
     expect(
-      tree.exists(`apps/api/${defaultSchema.applicationName}/deployment-values.yaml`)
+      tree.exists(
+        `apps/api/${defaultSchema.applicationName}/deployment-values.yaml`
+      )
     ).toBeTruthy();
 
     expect(
@@ -89,6 +91,30 @@ describe('Application generate generator', () => {
     expect(
       tree.exists(
         `libs/api/${defaultSchema.applicationName}/data-transfer-objects/src/index.ts`
+      )
+    ).toBeTruthy();
+
+    expect(
+      tree.exists(
+        `libs/api/${defaultSchema.applicationName}/${defaultSchema.applicationName}/src/index.ts`
+      )
+    ).toBeTruthy();
+
+    expect(
+      tree.exists(
+        `libs/api/${defaultSchema.applicationName}/${defaultSchema.applicationName}/src/lib/${defaultSchema.applicationName}.service.ts`
+      )
+    ).toBeTruthy();
+
+    expect(
+      tree.exists(
+        `libs/api/${defaultSchema.applicationName}/${defaultSchema.applicationName}/src/lib/${defaultSchema.applicationName}.module.ts`
+      )
+    ).toBeTruthy();
+
+    expect(
+      tree.exists(
+        `libs/api/${defaultSchema.applicationName}/${defaultSchema.applicationName}/src/lib/${defaultSchema.applicationName}.controller.ts`
       )
     ).toBeTruthy();
 

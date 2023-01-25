@@ -46,6 +46,9 @@ spec:
               memory: '{{ .Values.resources.limits.memory }}'
       imagePullSecrets:
         - name: regcred
+      {{- with .Values.secrets }}
+      env: {{ .Values.secrets }}
+      {{- end }}
 ---
 apiVersion: v1
 kind: Service

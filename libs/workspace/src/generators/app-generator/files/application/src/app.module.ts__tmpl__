@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { HealthModule } from '@microservice-stack/nest-health';
 import { ConfigModule, ConfigService } from '@microservice-stack/nest-config';
 import { ConfigVariables } from '@<%= organisationName %>/api/<%= applicationName %>/constants';
+import { <%= capitalApplicationName %> }Module from '@<%= organisationName %>/api/<%= applicationName %>/<%= applicationName %>';
 <% if(includeDatabase) { %>import { TypeOrmModule } from '@nestjs/typeorm';
 import { migrations } from './migrations';<% } if(includeQueue) { %>
 import { RabbitmqModule } from '@microservice-stack/nest-rabbitmq';<% } if(includeRedis) { %>
@@ -56,6 +57,7 @@ import { RedisModule } from '@microservice-stack/nest-redis';<% } %>
       }),
     }),<% } %>
     HealthModule,
+    <%= capitalApplicationName %> }Module,
   ],
   controllers: [],
   providers: [],

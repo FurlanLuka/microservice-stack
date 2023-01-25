@@ -3,8 +3,10 @@
 service:
 ## Service name. Service name MUST be specified by each service
   name: "<%= applicationName %>"
-## Service start / entrypoint command
-  # command: "node service/main.js"
+
+secrets:
+  - name: REQUIRED_ENVIRONMENT_VARIABLE
+    value: "Hello World!"
 
 ## Minimum number of replicas
 # replicas: 1
