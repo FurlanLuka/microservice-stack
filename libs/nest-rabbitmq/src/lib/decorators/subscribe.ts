@@ -28,7 +28,7 @@ export function Subscribe(
   const exchange = options.exchange ?? DEFAULT_EXCHANGE;
   const routingKey = event.getRoutingKey();
   const queueSpecificRoutingKey = `${queueName}-${routingKey}`;
-  const fullQueueName = `${queueName}-${exchange.name}-routingKey`;
+  const fullQueueName = `${queueName}-${exchange.name}-${routingKey}`;
 
   const requeueOnErrorOptions: RequeueOnErrorOptions = {
     retry: true,
