@@ -14,7 +14,7 @@ export function addMigrationGenerationTarget(tree: Tree, projectName: string) {
       'generate-migrations': {
         executor: 'nx:run-commands',
         options: {
-          command: `npm run build ${projectName} && node dist/apps/${projectName}/main generate-migrations`,
+          command: `nx run ${projectName}:build && node dist/apps/${projectName.replace('-', '/')}/main generate-migrations`,
         },
       },
     },
