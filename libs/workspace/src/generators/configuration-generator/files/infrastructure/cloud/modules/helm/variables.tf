@@ -21,3 +21,11 @@ variable "domain" {
 variable "acm_certificate_arn" {
   type = string
 }
+
+variable "deploy_rabbitmq" {
+  type = bool
+}
+
+variable "deploy_redis" {
+  type = bool
+}

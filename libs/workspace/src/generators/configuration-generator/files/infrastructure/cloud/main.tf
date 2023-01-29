@@ -61,6 +61,9 @@ module "helm" {
   name = module.eks.name
   cluster_ca_certificate = module.eks.cluster_ca_certificate
 
+  deploy_rabbitmq = var.deploy_rabbitmq
+  deploy_redis = var.deploy_redis
+
   domain = var.domain
   acm_certificate_arn = module.certificate_manager.acm_certificate_arn
 
@@ -68,6 +71,8 @@ module "helm" {
 }
 
 module "rds" {
+  count = var.deploy_postgres ? 1 : 0
+
   source = "./modules/rds"
 
   name = var.environment_name

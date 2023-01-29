@@ -36,6 +36,8 @@ resource "helm_release" "alb" {
 }
 
 resource "helm_release" "redis" {
+  count = var.deploy_redis ? 1 : 0
+
   name = "redis"
   chart = "bitnami/redis"
 
@@ -46,6 +48,8 @@ resource "helm_release" "redis" {
 }
 
 resource "helm_release" "rabbitmq" {
+  count = var.deploy_rabbitmq ? 1 : 0
+
   name = "rabbitmq"
   chart = "bitnami/rabbitmq"
 

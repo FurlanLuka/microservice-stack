@@ -17,3 +17,15 @@ variable "output_secrets" {
 variable "load_balancer_url" {
   default = ""
 }
+
+variable "deploy_rabbitmq" {
+  default = false
+}
+
+variable "deploy_redis" {
+  default = false
+}
+
+variable "deploy_postgres" {
+  default = false
+}
