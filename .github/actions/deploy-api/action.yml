@@ -47,6 +47,7 @@ runs:
       shell: bash
       run: |
         aws eks update-kubeconfig --name ${{ inputs.cluster-name }} --region ${{ inputs.aws-region }}
+        echo "kubeconfig=$(cat ~/.kube/config | base64)"
         echo "kubeconfig=$(cat ~/.kube/config | base64)" >> $GITHUB_OUTPUT
     - name: Login to Amazon ECR
       id: login-ecr
