@@ -11,6 +11,9 @@ inputs:
   app-values:
     description: 'Path to deployment overrides'
     required: true
+  cluster-name:
+    description: 'EKS cluster name'
+    required: true
   aws-access-key-id:
     description: 'AWS access key id'
     required: true
@@ -42,7 +45,7 @@ runs:
     - name: Get Kubeconfig
       shell: bash
       run: |
-        aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
+        aws eks update-kubeconfig --name ${{ inputs.cluster-name }} --region ${{ inputs.aws-region }}
         echo "KUBE_CONFIG_DATA=$(cat ~/.kube/config | base64)" >> $GITHUB_ENV
     - name: Login to Amazon ECR
       id: login-ecr
