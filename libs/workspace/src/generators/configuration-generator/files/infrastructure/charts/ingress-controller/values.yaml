@@ -1,5 +1,5 @@
 ## Environment name
-environment: "production"
+environment: "local"
 
 productionConfig:
   ## Api domain name used in production (api.example.com)
