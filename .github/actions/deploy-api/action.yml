@@ -47,14 +47,15 @@ runs:
       shell: bash
       run: |
         aws eks update-kubeconfig --name ${{ inputs.cluster-name }} --region ${{ inputs.aws-region }}
-        echo "kubeconfig=$(cat ~/.kube/config | base64)"
-        echo "kubeconfig=$(cat ~/.kube/config | base64)" >> $GITHUB_OUTPUT
+        echo 'KUBE_CONFIG_DATA<<EOF' >> $GITHUB_ENV
+        echo $(cat ~/.kube/config | base64) >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
     - name: Deploy
       uses: koslib/helm-eks-action@master
       env:
-        KUBE_CONFIG_DATA: ${{ steps.get-kubeconfig.kubeconfig }}
+        KUBE_CONFIG_DATA: ${{ env.KUBE_CONFIG_DATA }}
       with:
         command: helm upgrade --install ${{ inputs.app-name }} ${{ inputs.deployment-chart }} --values ${{ inputs.deployment-chart }}/values.yaml --values ${{ inputs.app-values }} --set version=${{ inputs.app-name }}-${{ inputs.image-tag }} --set image=${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}
