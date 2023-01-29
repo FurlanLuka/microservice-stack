@@ -3,11 +3,11 @@ variable "environment_name" {
 }
 
 variable "domain" {
-  default = "cloud.microservice-stack.com"
+  default = "<replace>"
 }
 
 variable "zone_id" {
-  default = "Z0524984X82EET1H7DYL"
+  default = "<replace>"
 }
 
 variable "output_secrets" {
@@ -15,5 +15,5 @@ variable "output_secrets" {
 }
 
 variable "load_balancer_url" {
-  default = "k8s-ingresscontroller-68eee81516-2098595028.us-east-1.elb.amazonaws.com"
+  default = ""
 }
