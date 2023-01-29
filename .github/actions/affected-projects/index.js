@@ -12,7 +12,9 @@ function getAffectedProjects() {
 }
 
 const run = () => {
-  const affectedProjects = getAffectedProjects();
+  const affectedProjects = getAffectedProjects().map((project) =>
+    project.replace('api-', '')
+  );
 
   core.setOutput('affectedProjects', affectedProjects);
   core.notice(`affectedProjects: ${affectedProjects}`);

@@ -2,8 +2,14 @@ name: microservice-stack-deploy-api
 description: Build and publish docker image
 
 inputs:
-  projectName:
+  app-name:
     description: 'Name of the buildable project'
+    required: true
+  deployment-chart:
+    description: 'Path to deployment chart'
+    required: true
+  app-values:
+    description: 'Path to deployment overrides'
     required: true
   aws-access-key-id:
     description: 'AWS access key id'
@@ -41,4 +47,4 @@ runs:
       env:
         KUBE_CONFIG_DATA: ${{ inputs.kube-config-data }}
       with:
-        command: helm upgrade --install ${{ inputs.projectName }} ./infrastructure/charts/node-service --values ./infrastructure/charts/node-service/values.yaml --values apps/api/${{ inputs.projectName }}/deployment-values.yaml --set version=${{ inputs.projectName }}-${{ inputs.image-tag }} --set image=${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}
+        command: helm upgrade --install ${{ inputs.app-name }} ${{ inputs.deployment-chart }} --values ${{ inputs.deployment-chart }}/values.yaml --values ${{ inputs.app-values }} --set version=${{ inputs.app-name }}-${{ inputs.image-tag }} --set image=${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}
