@@ -1,5 +1,5 @@
 ## Environment name
-environment: "local"
+environment: "production"
 
 productionConfig:
   ## Api domain name used in production (api.example.com)
@@ -17,5 +17,5 @@ websocketConfig:
 
 # List of endpoints mapped to the service name
 endpoints:
-  - serviceName: ''
-    path: ''
+  - serviceName: 'override'
+    path: '/'
