@@ -14,6 +14,9 @@ inputs:
   ecr-repository:
     description: 'ECR repository name'
     required: true
+  dockerfile:
+    description: 'Location to prebuild dockerfile'
+    required: true
 
 runs:
   using: composite
@@ -35,5 +38,6 @@ runs:
         context: ./
         push: true
         tags: ${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}:prebuild-${{ github.sha }}
+        file: ${{ inputs.dockerfile }}
         cache-from: type=gha, scope=${{ github.sha }}
         cache-to: type=gha, scope=${{ github.sha }}, mode=max
