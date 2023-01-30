@@ -44,11 +44,15 @@ spec:
               cpu: '{{ .Values.resources.request.cpu }}'
             limits:
               memory: '{{ .Values.resources.limits.memory }}'
+          {{- if .Values.secrets.enabled }}
+          env:
+            {{- range $secret := .Values.secrets.env }}
+            - {{- $secret | toYaml | nindent 14 }}
+            {{- end }}
+          {{- end }}
       imagePullSecrets:
         - name: regcred
-      {{- with .Values.secrets }}
-      env: {{ .Values.secrets }}
-      {{- end }}
+      
 ---
 apiVersion: v1
 kind: Service
@@ -94,4 +98,3 @@ spec:
           averageUtilization: 80
     {{- end }}
   {{- end }}
-

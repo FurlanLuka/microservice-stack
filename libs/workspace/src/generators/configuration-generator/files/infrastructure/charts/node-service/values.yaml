@@ -31,3 +31,6 @@ autoscaling:
   cpu: true
   ## Maximum number of replicas
   maxReplicas: 3
+
+secrets:
+  enabled: false

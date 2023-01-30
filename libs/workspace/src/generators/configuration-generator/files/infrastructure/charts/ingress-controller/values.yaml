@@ -17,5 +17,5 @@ websocketConfig:
 
 # List of endpoints mapped to the service name
 endpoints:
-  - serviceName: ''
-    path: ''
+  - serviceName: 'override'
+    path: '/'
