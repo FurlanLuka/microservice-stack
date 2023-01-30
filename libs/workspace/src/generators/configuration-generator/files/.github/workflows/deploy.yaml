@@ -19,6 +19,8 @@ jobs:
           export TAG=${GITHUB_REF#refs/tags/}
           echo "IMAGE_TAG=${TAG#v}" >> $GITHUB_OUTPUT
   setup_and_check:
+    outputs:
+      affectedProjects: ${{ steps.affected-projects.outputs.affectedProjects }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -29,12 +31,12 @@ jobs:
           main-branch-name: ${{ env.BASE_BRANCH_NAME }}
       - uses: FurlanLuka/microservice-stack/.github/actions/install-dependencies@main
         name: Install dependencies
-      - run: npx nx workspace-lint
       - run: npx nx affected --target=lint --parallel=3 --base=origin/${{ env.BASE_BRANCH_NAME }}
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage --base=origin/${{ env.BASE_BRANCH_NAME }}
       - run: npx nx affected --target=build --parallel=3 --base=origin/${{ env.BASE_BRANCH_NAME }}
       - uses: FurlanLuka/microservice-stack/.github/actions/affected-projects@main
         name: Extract affected projects
+        id: affected-projects
         with:
           base: origin/${{ env.BASE_BRANCH_NAME }}
   prebuild:
@@ -52,6 +54,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
           ecr-repository: ${{ secrets.AWS_ECR_REPOSITORY }}
+          dockerfile: ./infrastructure/Dockerfile.prebuild
   build_and_publish:
     if: ${{ needs.setup_and_check.outputs.affectedProjects != '[]' && needs.setup_and_check.outputs.affectedProjects != '' }}
     needs: [extract_metadata, setup_and_check, prebuild]
@@ -69,7 +72,8 @@ jobs:
       - uses: FurlanLuka/microservice-stack/.github/actions/docker-build@main
         name: Build and publish docker image
         with:
-          projectName: ${{ matrix.project }}
+          app-name: ${{ matrix.project }}
+          app-dockerfile: ./apps/api/${{ matrix.project }}/Dockerfile.ci
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
@@ -79,7 +83,7 @@ jobs:
   deploy:
     if: ${{ needs.setup_and_check.outputs.affectedProjects != '[]' && needs.setup_and_check.outputs.affectedProjects != '' }}
     name: Deploy ${{ matrix.project }}
-    needs: [build_and_publish, setup_and_check]
+    needs: [build_and_publish, setup_and_check, extract_metadata]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -94,10 +98,13 @@ jobs:
       - uses: FurlanLuka/microservice-stack/.github/actions/deploy-api@main
         name: Deploy API
         with:
-          projectName: ${{ matrix.project }}
+          app-name: ${{ matrix.project }}
+          deployment-chart: ./infrastructure/charts/node-service
+          app-values: ./apps/api/${{ matrix.project }}/deployment-values.yaml
+          cluster-name: ${{ secrets.CLUSTER_NAME }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
           ecr-repository: ${{ secrets.AWS_ECR_REPOSITORY }}
           kube-config-data: ${{ secrets.KUBE_CONFIG_DATA }}
-          image-tag: ${{ needs.setup_and_check.outputs.imageTag }}
+          image-tag: ${{ needs.extract_metadata.outputs.imageTag }}

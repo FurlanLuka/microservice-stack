@@ -20,7 +20,7 @@ module "security_group" {
 module "db" {
   source = "terraform-aws-modules/rds/aws"
 
-  identifier = "postgresql"
+  identifier = "${var.name}-postgresql"
 
   engine               = "postgres"
   engine_version       = "14"

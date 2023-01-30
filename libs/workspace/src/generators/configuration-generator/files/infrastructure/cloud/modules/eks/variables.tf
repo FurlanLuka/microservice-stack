@@ -11,3 +11,7 @@ variable "vpc_id" {
 }
 
 variable "vpc_private_subnets" {}
+
+variable "aws_auth_users" {
+  default = []
+}

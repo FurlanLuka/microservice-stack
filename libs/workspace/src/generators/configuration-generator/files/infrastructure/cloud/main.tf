@@ -15,6 +15,12 @@ provider "aws" {
   region     = var.region
   secret_key = var.secret_key
   access_key = var.access_key
+
+  default_tags {
+    tags = {
+      Manager = "MicroserviceStack"
+    }
+  }
 }
 
 module "certificate_manager" {
@@ -45,6 +51,14 @@ module "eks" {
 
   vpc_id = module.vpc.vpc_id
   vpc_private_subnets = module.vpc.private_subnets
+
+  aws_auth_users = [
+    {
+      userarn  = module.iam.github_actions_user_arn
+      username = module.iam.github_actions_user_name
+      groups   = ["system:masters"]
+    },
+  ]
 }
 
 module "iam" {
@@ -77,8 +91,8 @@ module "rds" {
 
   name = var.environment_name
 
-  db_name  = "default"
-  username = "default"
+  db_name  = "default_db"
+  username = "default_user"
 
   vpc_id                    = module.vpc.vpc_id
   vpc_private_subnets       = module.vpc.private_subnets
