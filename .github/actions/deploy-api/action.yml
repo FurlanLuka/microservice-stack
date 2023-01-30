@@ -58,4 +58,4 @@ runs:
       env:
         KUBE_CONFIG_DATA: ${{ env.KUBE_CONFIG_DATA }}
       with:
-        command: helm upgrade --install ${{ inputs.app-name }} ${{ inputs.deployment-chart }} --values ${{ inputs.deployment-chart }}/values.yaml --values ${{ inputs.app-values }} --set version=${{ inputs.app-name }}-${{ inputs.image-tag }} --set image=${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}
+        command: helm upgrade --install ${{ inputs.app-name }} ${{ inputs.deployment-chart }} --values ${{ inputs.deployment-chart }}/values.yaml --values ${{ inputs.app-values }} --set version=${{ inputs.app-name }}-${{ inputs.image-tag }} --set image=${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }} --set environment=production
