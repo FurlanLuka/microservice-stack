@@ -1,14 +1,7 @@
-import { generateFiles, joinPathFragments, Tree } from '@nrwl/devkit';
+import { generateFiles, joinPathFragments, Tree } from '@nx/devkit';
 
-export function createDeploymentFiles(
-  tree: Tree,
-) {
-  generateFiles(
-    tree,
-    joinPathFragments(__dirname, '..', 'files'),
-    '',
-    {
-      tmpl: '',
-    }
-  );
+export function createDeploymentFiles(tree: Tree) {
+  generateFiles(tree, joinPathFragments(__dirname, '..', 'files'), '', {
+    tmpl: '',
+  });
 }

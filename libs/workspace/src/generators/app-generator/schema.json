@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "cli": "nx",
   "$id": "ApplicationGeneratorPlugin",
   "title": "",
   "type": "object",
@@ -26,5 +25,7 @@
       "x-prompt": "Enable database configuration? (only with deployment enabled)"
     }
   },
-  "required": ["applicationName"]
+  "required": [
+    "applicationName"
+  ]
 }

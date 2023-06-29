@@ -1,8 +1,4 @@
-import {
-  GeneratorCallback,
-  readProjectConfiguration,
-  Tree,
-} from '@nrwl/devkit';
+import { GeneratorCallback, readProjectConfiguration, Tree } from '@nx/devkit';
 import { AppLibraryGeneratorSchema } from './schema';
 import { libraryGenerator } from '../library-generator/generator';
 

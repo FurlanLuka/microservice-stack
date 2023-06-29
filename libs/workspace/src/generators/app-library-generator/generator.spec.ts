@@ -1,5 +1,5 @@
-import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
-import { Tree, readProjectConfiguration } from '@nrwl/devkit';
+import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
+import { Tree, readProjectConfiguration } from '@nx/devkit';
 
 import appLibraryGenerator from './generator';
 import applicationGenerator from '../app-generator/generator';

@@ -8,11 +8,11 @@
     "access": "public"
   },
   "dependencies": {
-    "@nrwl/linter": "15.4.5",
     "@nrwl/node": "15.4.5",
-    "@nrwl/devkit": "15.4.5",
-    "@nrwl/js": "15.4.5",
-    "@nrwl/nest": "15.4.5",
-    "@nrwl/workspace": "15.4.5"
+    "@nx/devkit": "15.4.5",
+    "@nx/workspace": "15.4.5",
+    "@nx/linter": "15.4.5",
+    "@nx/js": "15.4.5",
+    "@nx/nest": "15.4.5"
   }
 }

@@ -1,4 +1,4 @@
-import { generateFiles, joinPathFragments, Tree } from '@nrwl/devkit';
+import { generateFiles, joinPathFragments, Tree } from '@nx/devkit';
 
 interface Options {
   name: string;
@@ -9,7 +9,7 @@ interface Options {
 export function createServiceLibraryFiles(
   tree: Tree,
   libraryRoot: string,
-  options: Options,
+  options: Options
 ) {
   generateFiles(
     tree,
@@ -18,6 +18,6 @@ export function createServiceLibraryFiles(
     {
       tmpl: '',
       ...options,
-    },
+    }
   );
 }

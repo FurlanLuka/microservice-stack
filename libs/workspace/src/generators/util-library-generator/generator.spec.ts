@@ -1,11 +1,11 @@
-import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
-import { Tree, readProjectConfiguration } from '@nrwl/devkit';
+import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
+import { Tree, readProjectConfiguration } from '@nx/devkit';
 
 import utilLibraryGenerator from './generator';
 import { UtilLibraryGeneratorSchema } from './schema';
 
 const defaultSchema: UtilLibraryGeneratorSchema = {
-  libraryName: 'test'
+  libraryName: 'test',
 };
 
 describe('Util library generator', () => {
@@ -31,15 +31,11 @@ describe('Util library generator', () => {
     ]);
 
     expect(
-      tree.exists(
-        `libs/api/utils/${defaultSchema.libraryName}/src/index.ts`
-      )
+      tree.exists(`libs/api/utils/${defaultSchema.libraryName}/src/index.ts`)
     ).toBeTruthy();
 
     expect(
-      tree.children(
-        `libs/api/utils/${defaultSchema.libraryName}/src`
-      ).length
+      tree.children(`libs/api/utils/${defaultSchema.libraryName}/src`).length
     ).toStrictEqual(1);
   });
 });

@@ -1,5 +1,5 @@
-import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
-import { Tree, readJson } from '@nrwl/devkit';
+import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
+import { Tree, readJson } from '@nx/devkit';
 import configurationGenerator from './generator';
 import {
   CLASS_TRANSFORMER_VERSION,
@@ -23,13 +23,9 @@ describe('Configuration generator', () => {
     expect(tree.exists('microservice-stack.json')).toBeTruthy();
     expect(readJson(tree, 'microservice-stack.json')).toStrictEqual({});
 
-    expect(
-      tree.exists(`.github/workflows/check.yaml`)
-    ).toBeTruthy();
+    expect(tree.exists(`.github/workflows/check.yaml`)).toBeTruthy();
 
-    expect(
-      tree.exists(`.github/workflows/deploy.yaml`)
-    ).toBeTruthy();
+    expect(tree.exists(`.github/workflows/deploy.yaml`)).toBeTruthy();
 
     const packageJson = readJson(tree, 'package.json');
 

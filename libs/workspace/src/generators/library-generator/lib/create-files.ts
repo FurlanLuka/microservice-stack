@@ -1,4 +1,4 @@
-import { generateFiles, joinPathFragments, Tree } from '@nrwl/devkit';
+import { generateFiles, joinPathFragments, Tree } from '@nx/devkit';
 
 export function createFiles(
   tree: Tree,

@@ -3,17 +3,17 @@ import {
   getWorkspaceLayout,
   joinPathFragments,
   Tree,
-} from '@nrwl/devkit';
+} from '@nx/devkit';
 import { ApplicationGeneratorSchema } from './schema';
-import { applicationGenerator as nestApplicationGenerator } from '@nrwl/nest';
-import { Linter } from '@nrwl/linter';
+import { applicationGenerator as nestApplicationGenerator } from '@nx/nest';
+import { Linter } from '@nx/linter';
 import { deleteFiles } from '../../utils/delete-files';
 import { createApplicationFiles } from './lib/create-application-files';
 import { libraryGenerator } from '../library-generator/generator';
 import { createConstantsLibraryFiles } from './lib/create-constants-library-files';
 import { createDtoLibraryFiles } from './lib/create-dto-library-files';
 import { addMigrationGenerationTarget } from './lib/add-migration-generation-target';
-import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 import { createServiceLibraryFiles } from './lib/create-service-library-files';
 
 export default async function applicationGenerator(
@@ -33,6 +33,7 @@ export default async function applicationGenerator(
   const nestApplicationGeneratorTask = await nestApplicationGenerator(tree, {
     name: applicationName,
     standaloneConfig: true,
+    e2eTestRunner: 'none',
     directory: `api`,
     linter: Linter.EsLint,
     tags: [`scope:api:lib:util`, `scope:api:lib:${applicationName}`].join(','),

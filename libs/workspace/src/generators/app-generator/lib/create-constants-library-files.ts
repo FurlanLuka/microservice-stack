@@ -1,6 +1,6 @@
-import { generateFiles, joinPathFragments, Tree } from '@nrwl/devkit';
+import { generateFiles, joinPathFragments, Tree } from '@nx/devkit';
 
-interface Options { 
+interface Options {
   includeQueue: boolean;
   includeDatabase: boolean;
   includeRedis: boolean;
@@ -10,7 +10,7 @@ interface Options {
 export function createConstantsLibraryFiles(
   tree: Tree,
   libraryRoot: string,
-  options: Options,
+  options: Options
 ) {
   generateFiles(
     tree,
@@ -18,7 +18,7 @@ export function createConstantsLibraryFiles(
     joinPathFragments(libraryRoot, 'src'),
     {
       tmpl: '',
-      ...options
+      ...options,
     }
   );
 }

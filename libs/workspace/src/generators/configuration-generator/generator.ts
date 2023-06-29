@@ -2,7 +2,7 @@ import {
   addDependenciesToPackageJson,
   GeneratorCallback,
   Tree,
-} from '@nrwl/devkit';
+} from '@nx/devkit';
 import {
   CLASS_TRANSFORMER_VERSION,
   CLASS_VALIDATOR_VERSION,
@@ -12,7 +12,7 @@ import {
   TYPEORM_VERSION,
 } from '../../utils/package-versions';
 import { createDeploymentFiles } from './lib/create-deployment-files';
-import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 
 const CONFIGURATION_FILE_NAME = 'microservice-stack.json';
 

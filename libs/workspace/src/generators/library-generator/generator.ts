@@ -3,13 +3,13 @@ import {
   getWorkspaceLayout,
   joinPathFragments,
   Tree,
-} from '@nrwl/devkit';
+} from '@nx/devkit';
 import { LibraryGeneratorSchema } from './schema';
-import { libraryGenerator as nestLibraryGenerator } from '@nrwl/nest';
-import { Linter } from '@nrwl/linter';
+import { libraryGenerator as nestLibraryGenerator } from '@nx/nest';
+import { Linter } from '@nx/linter';
 import { deleteFiles } from '../../utils/delete-files';
 import { createFiles } from './lib/create-files';
-import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 
 export async function libraryGenerator(
   tree: Tree,

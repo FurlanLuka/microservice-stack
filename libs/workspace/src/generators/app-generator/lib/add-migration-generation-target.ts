@@ -2,7 +2,7 @@ import {
   readProjectConfiguration,
   Tree,
   updateProjectConfiguration,
-} from '@nrwl/devkit';
+} from '@nx/devkit';
 
 export function addMigrationGenerationTarget(tree: Tree, projectName: string) {
   const projectConfig = readProjectConfiguration(tree, projectName);
@@ -14,7 +14,10 @@ export function addMigrationGenerationTarget(tree: Tree, projectName: string) {
       'generate-migrations': {
         executor: 'nx:run-commands',
         options: {
-          command: `nx run ${projectName}:build && node dist/apps/${projectName.replace('-', '/')}/main generate-migrations`,
+          command: `nx run ${projectName}:build && node dist/apps/${projectName.replace(
+            '-',
+            '/'
+          )}/main generate-migrations`,
         },
       },
     },
