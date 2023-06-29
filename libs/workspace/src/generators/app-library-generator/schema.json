@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "cli": "nx",
   "$id": "AppLibraryGeneratorPlugin",
   "title": "",
   "type": "object",
@@ -19,5 +18,8 @@
       "x-prompt": "What util name would you like to use?"
     }
   },
-  "required": ["applicationName", "libraryName"]
+  "required": [
+    "applicationName",
+    "libraryName"
+  ]
 }

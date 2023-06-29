@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "cli": "nx",
   "$id": "TypeormMigrationGenerator",
   "title": "",
   "type": "object",
@@ -14,5 +13,7 @@
       "x-prompt": "What application would you like to target?"
     }
   },
-  "required": ["applicationName"]
+  "required": [
+    "applicationName"
+  ]
 }

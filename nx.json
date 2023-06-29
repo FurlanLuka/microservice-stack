@@ -1,4 +1,13 @@
 {
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx-cloud",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "ZTA2MjM1MjgtZjgwOS00MWYyLWI2MWQtYjFlODFhNDdkZTE0fHJlYWQtd3JpdGU="
+      }
+    }
+  },
   "extends": "nx/presets/core.json",
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "npmScope": "microservice-stack",
@@ -6,16 +15,7 @@
     "defaultBase": "main"
   },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "@nrwl/nx-cloud",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "ZTA2MjM1MjgtZjgwOS00MWYyLWI2MWQtYjFlODFhNDdkZTE0fHJlYWQtd3JpdGU="
-      }
-    }
+    "defaultCollection": "@nx/workspace"
   },
   "targetDefaults": {
     "lint": {

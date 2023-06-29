@@ -1,4 +1,4 @@
-import { GeneratorCallback, Tree } from '@nrwl/devkit';
+import { GeneratorCallback, Tree } from '@nx/devkit';
 import { UtilLibraryGeneratorSchema } from './schema';
 import { libraryGenerator } from '../library-generator/generator';
 

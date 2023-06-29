@@ -3,7 +3,7 @@ import {
   getWorkspaceLayout,
   offsetFromRoot,
   Tree,
-} from '@nrwl/devkit';
+} from '@nx/devkit';
 import { TypeormMigrationGeneratorSchema } from './schema';
 import { exec } from 'child_process';
 import { promisify } from 'util';
