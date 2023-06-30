@@ -3,7 +3,7 @@
   "version": "0.0.5",
   "type": "commonjs",
   "dependencies": {
-    "@nestjs/common": "^9.2.1"
+    "@nestjs/common": "^10.0.4"
   },
   "publishConfig": {
     "access": "public"

@@ -3,8 +3,8 @@
   "version": "0.0.5",
   "type": "commonjs",
   "dependencies": {
-    "@nestjs/common": "^9.2.1",
-    "@nestjs/config": "^2.2.0"
+    "@nestjs/common": "^10.0.4",
+    "@nestjs/config": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"
