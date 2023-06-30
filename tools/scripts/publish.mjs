@@ -7,7 +7,7 @@
  * You might need to authenticate with NPM before running this script.
  */
 
-import * as devkit from '@nx/devkit';
+import devkit from '@nx/devkit';
 import { exec, execSync } from 'child_process';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import chalk from 'chalk';
