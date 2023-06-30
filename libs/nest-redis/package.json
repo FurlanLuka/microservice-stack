@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "type": "commonjs",
   "dependencies": {
-    "@nestjs/common": "^9.2.1",
-    "ioredis": "^5.2.5"
+    "@nestjs/common": "^10.0.4",
+    "ioredis": "^5.3.2"
   },
   "publishConfig": {
     "access": "public"

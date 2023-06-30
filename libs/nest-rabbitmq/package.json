@@ -3,9 +3,9 @@
   "version": "0.0.5",
   "type": "commonjs",
   "dependencies": {
-    "@golevelup/nestjs-rabbitmq": "^3.4.0",
-    "@nestjs/common": "^9.2.1",
-    "@nestjs/core": "^9.2.1",
+    "@golevelup/nestjs-rabbitmq": "^3.6.1",
+    "@nestjs/common": "^10.0.4",
+    "@nestjs/core": "^10.0.4",
     "uuid": "9.0.0"
   },
   "publishConfig": {

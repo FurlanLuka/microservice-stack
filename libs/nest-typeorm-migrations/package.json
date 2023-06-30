@@ -3,9 +3,9 @@
   "version": "0.0.5",
   "type": "commonjs",
   "dependencies": {
-    "@nestjs/common": "^9.2.1",
-    "@nestjs/core": "^9.2.1",
-    "typeorm": "^0.3.11"
+    "@nestjs/common": "^10.0.4",
+    "@nestjs/core": "^10.0.4",
+    "typeorm": "^0.3.17"
   },
   "devDependencies": {
     "@sqltools/formatter": "^1.2.5"
